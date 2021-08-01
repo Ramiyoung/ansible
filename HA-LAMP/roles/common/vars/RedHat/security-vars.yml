@@ -1,0 +1,8 @@
+---
+# SELinux packages configuration
+selinux_packages:
+  - selinux-policy
+  - selinux-policy-doc
+  - selinux-policy-mls
+  - setroubleshoot-server
+  - setools-console
