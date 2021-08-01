@@ -1,0 +1,6 @@
+#Mariadb-10.4+
+ALTER USER '{{ msi_user }}'@'localhost' identified by '{{ msi_passwd }}';
+DELETE FROM mysql.user WHERE User='';
+DROP DATABASE IF EXISTS test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;

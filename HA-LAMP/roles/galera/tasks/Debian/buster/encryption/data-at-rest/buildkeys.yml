@@ -1,0 +1,25 @@
+---
+#Galera Cluster Data-at-Rest Encryption
+- name: "Building keys for Data-at-Rest encryption"
+  local_action:
+    module: ansible.builtin.shell
+    cmd: "{{ build_encryption_key_cmd }} >> {{ tmp_local_keyfile_storage }}"
+
+- name: "Setting keys id to {{ local_keyfile_storage }}"
+  local_action:
+    module: ansible.builtin.shell
+    cmd: "nl -s \";\" {{ tmp_local_keyfile_storage }} > {{ local_keyfile_storage }} && \
+    sed -i 's/[[:blank:]]//g' {{ local_keyfile_storage }}"
+  run_once: True
+
+- name: "Building encryption password (for keyfile encryption)"
+  local_action:
+    module: ansible.builtin.shell
+    cmd: "{{ build_encryption_key_pwd_cmd }} > {{ local_keyfile_pwd_storage }}"
+  run_once: True
+
+- name: "Encrypting keyfile"
+  local_action:
+    module: ansible.builtin.shell
+    cmd: "{{ build_keyfile_encryption_cmd }}"
+  run_once: True

@@ -1,0 +1,8 @@
+---
+- name : Install and configure nginx
+  hosts: haproxy
+  
+  roles:
+    - common
+    - pacemaker
+    - haproxy

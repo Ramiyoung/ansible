@@ -1,0 +1,8 @@
+---
+- name : Install and configure MariaDB galera cluster
+  hosts: mariadb
+  
+  roles:
+    - role: common
+    - role: galera
+      tags: init

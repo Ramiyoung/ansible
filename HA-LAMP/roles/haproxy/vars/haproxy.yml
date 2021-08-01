@@ -1,0 +1,22 @@
+---
+# vars file for HA-conf (HAproxy specific)
+HAproxy_packages: haproxy
+HAproxy_packages_version: latest
+HAproxy_main_node: haproxy-01
+HAproxy_template_file: haproxy.j2
+HAproxy_config_path: /etc/haproxy
+HAproxy_config_file: "{{ HAproxy_config_path }}/haproxy.cfg"
+HAproxy_config_file_owner: root
+HAproxy_config_file_group: root
+HAproxy_config_file_mode: '0644'
+HAproxy_validate: /sbin/haproxy -c -f %s
+HAproxy_backup: yes
+HAproxy_nginx_backend:
+    nginx-01: 10.100.0.21
+    nginx-02: 10.100.0.22
+
+HAproxy_firewalld_service: 
+    - http
+    - https
+HAproxy_firewalld_service_permanent: yes
+HAproxy_firewalld_service_state: enabled

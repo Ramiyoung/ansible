@@ -1,0 +1,16 @@
+---
+# vars file for haproxy
+pcsd_resource_create_cmd: pcs resource create
+pcsd_resource_defaults_stickiness: pcs resource defaults resource-stickiness
+pcsd_constraint_colocation_add: pcs constraint colocation add
+pcsd_constraint_colocation_add_lvl: INFINITY
+pcsd_constraint_colocation_order: pcs constraint order
+
+#HA Resource value 
+pcmk_ha_vip_name: HAproxy-vip
+pcmk_ha_service_name: HAproxy
+pcmk_ha_vip: 10.100.0.90
+pcmk_ha_vip_netmask: 32
+pcmk_ha_vip_interval: 30s 
+pcmk_ha_HAproxy_interval: 10s 
+pcmk_ha_vip_stickiness: 100

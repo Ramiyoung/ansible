@@ -1,0 +1,11 @@
+---
+- name: "Installing bind9 package : {{ bind9_packages }}"
+  yum:
+    name: "{{ bind9_packages }}"
+    state: "{{ bind9_packages_version }}"
+
+- name: starting and enabling {{ bind9_service }} services 
+  ansible.builtin.service:
+    name: "{{ bind9_services }}"
+    state: "{{ bind9_service_state }}"
+    enabled: "{{ bind9_service_enabled }}"

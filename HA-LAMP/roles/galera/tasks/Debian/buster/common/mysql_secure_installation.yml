@@ -1,0 +1,16 @@
+- name : "Deploying {{ msi_template_script }} to {{ msi_script }}"
+  ansible.builtin.template:
+    src: "{{ msi_template_script }}"
+    dest: "{{ msi_script }}"
+    owner: "{{ msi_script_owner }}"
+    group: "{{ msi_script_group }}"
+    mode: "{{ msi_script_mode }}"
+
+- name : "Running {{ msi_script }}"
+  ansible.builtin.shell:
+    cmd: "mysql -u{{ msi_user }} < {{ msi_script }}"
+
+- name : "Removing {{ msi_script }}"
+  ansible.builtin.file:
+    path: "{{ msi_script }}"
+    state: "{{ msi_script_state }}"

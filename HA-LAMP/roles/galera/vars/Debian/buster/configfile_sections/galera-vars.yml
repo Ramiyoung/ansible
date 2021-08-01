@@ -1,0 +1,19 @@
+galera_section_template: "{{ OS_template_dir + '/configfile_sections/galera' }}"
+galera_section_mandatory_template: "{{ galera_section_template + '/mandatory.j2'}}"
+galera_section_optional_template: "{{ galera_section_template + '/optional.j2'}}"
+
+#[galera]
+#Mandatory
+wsrep_provider: /usr/lib/libgalera_smm.so
+wsrep_cluster_address: "{{ 'gcomm://' + mariadb_hosts|map(attribute=\"hostname\")|join(',') }}"
+wsrep_on: "ON"
+binlog_format: row
+default_storage_engine: InnoDB
+innodb_autoinc_lock_mode: "2"
+innodb_doublewrite: "1"
+query_cache_size: "0"
+bind_address: "0.0.0.0"
+
+#Optional
+innodb_flush_log_at_trx_commit: "0"
+wsrep_slave_threads: "1"

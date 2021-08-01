@@ -1,0 +1,13 @@
+---
+# forward ramiyoeun.lan vars file
+fwd_ramiyoeun_zone_template: ramiyoeun.lan.j2
+fwd_ramiyoeun_zonefile: "{{ zones_root + '/ramiyoeun.lan' }}"
+fwd_ramiyoeun_zone_name: ramiyoeun.lan
+fwd_ramiyoeun_primary_zone_name: "{{ fwd_ramiyoeun_zone_name + '.' }}"
+fwd_ramiyoeun_root_zone_name: "{{ 'root.' + fwd_ramiyoeun_zone_name + '.' }}"
+fwd_ramiyoeun_lan_ttl: 86400
+fwd_ramiyoeun_lan_serial: 2021052100
+fwd_ramiyoeun_lan_refresh: 3600
+fwd_ramiyoeun_lan_retry: 1800
+fwd_ramiyoeun_lan_expire: 604800
+fwd_ramiyoeun_lan_min_TTL: 43200

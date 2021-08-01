@@ -1,0 +1,15 @@
+---
+- name : Updating cache
+  yum:
+    update_cache: yes
+
+- name : Installing common packages
+  yum:
+    name: "{{ common_packages }}"
+    state: "{{ common_packages_version }}"
+
+- name : start firewalld
+  ansible.builtin.service:
+    name: "{{ firewalld_service }}"
+    state: "{{ firewalld_state }}"
+    enabled: "{{ firewalld_enabled }}"

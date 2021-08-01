@@ -1,0 +1,17 @@
+---
+- name : "Deploying {{ mariabackup_sst_privileges_template_script }} to {{ mariabackup_sst_privileges_script }}"
+  ansible.builtin.template:
+    src: "{{ mariabackup_sst_privileges_template_script }}"
+    dest: "{{ mariabackup_sst_privileges_script }}"
+    owner: "{{mariabackup_sst_privileges_script_owner }}"
+    group: "{{ mariabackup_sst_privileges_script_group }}"
+    mode: "{{ mariabackup_sst_privileges_script_mode }}"
+
+- name : "Running {{ mariabackup_sst_privileges_script }}"
+  ansible.builtin.shell:
+    cmd: "mysql -u{{ msi_user }} -p'{{ msi_passwd }}' < {{ mariabackup_sst_privileges_script }}"
+
+- name : "Removing {{ mariabackup_sst_privileges_script }}"
+  ansible.builtin.file:
+    path: "{{ mariabackup_sst_privileges_script }}"
+    state: "{{ mariabackup_sst_privileges_script_state }}"

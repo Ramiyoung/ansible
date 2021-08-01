@@ -1,0 +1,28 @@
+---
+# vars file for bind9
+# common
+bind9_packages:
+  - bind
+  - bind-utils
+bind9_packages_version: latest
+bind9_service_state: started
+bind9_service_enabled: yes
+bind9_services: named 
+
+# firewalld
+dns_firewalld_service:
+  - dns
+dns_firewalld_service_permanent: yes
+dns_firewalld_service_state: enabled
+
+#config file
+bind9_config: /etc/named.conf
+bind9_config_template: named.conf.j2
+bind9_config_owner: root
+bind9_config_group: named
+bind9_config_mode: '0640'
+
+#zones defaults
+zonefile_owner: root
+zonefile_group: named
+zonefile_mode: '0777'

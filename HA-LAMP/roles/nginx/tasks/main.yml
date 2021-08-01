@@ -1,0 +1,9 @@
+---
+# tasks file for nginx
+- include_vars: vars/firewalld.yml
+
+- name : installing nginx 
+  include_tasks: base.yml
+
+- name : configuring default index.html
+  include_tasks: site_config.yml

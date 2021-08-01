@@ -1,0 +1,7 @@
+---
+- name : Install and configure nginx
+  hosts: nginx
+  
+  roles:
+    - common
+    - nginx

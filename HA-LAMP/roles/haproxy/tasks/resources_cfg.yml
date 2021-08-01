@@ -1,0 +1,16 @@
+---
+- name: Setting up HAproxy vip
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_create_cmd }} {{ pcmk_ha_vip_name }} 
+    ocf:heartbeat:IPaddr2 ip={{ pcmk_ha_vip }}
+     cidr_netmask={{ pcmk_ha_vip_netmask }}
+      op monitor interval={{ pcmk_ha_vip_interval }}"
+
+- name: Setting up HAproxy vip stickiness
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_defaults_stickiness }}={{ pcmk_ha_vip_stickiness }}"
+
+- name: Setting up HAproxy resource
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_create_cmd }} {{ pcmk_ha_service_name }} systemd:haproxy 
+      op monitor interval={{ pcmk_ha_HAproxy_interval }}"

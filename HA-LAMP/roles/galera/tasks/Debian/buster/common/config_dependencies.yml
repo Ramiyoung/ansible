@@ -1,0 +1,4 @@
+- name : "Installing MariaDB dependencies (pre-requesites) : {{ mariadb_dependencies_packages }}"
+  ansible.builtin.apt:
+    name: "{{ mariadb_dependencies_packages }}"
+    state: "{{ mariadb_dependencies_packages_state }}"

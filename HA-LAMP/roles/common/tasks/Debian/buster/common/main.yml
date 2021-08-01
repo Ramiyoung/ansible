@@ -1,0 +1,6 @@
+---
+- name : Setting up common repositories
+  include_tasks : add_repo.yml
+
+- name: Configuring common packages
+  include_tasks : config_pkgs.yml

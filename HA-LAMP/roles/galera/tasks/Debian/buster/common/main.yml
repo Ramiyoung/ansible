@@ -1,0 +1,22 @@
+---
+# tasks for common subtasks
+- name: Configuring records in {{ host_file }}
+  include_tasks: config_hosts.yml
+
+- name: Installing Galera MariaDB dependencies and packages
+  include_tasks: config_dependencies.yml
+
+- name: Configuring MariaDB repository
+  include_tasks: config_repo.yml
+  
+- name: Cleaning and configuring DB from scratch (mysql_secure_installation)
+  include_tasks: mysql_secure_installation.yml
+
+- name: Configuring Mariabackup user privileges for State Snapshot Transfer
+  include_tasks: config_galera_sst_priv.yml
+
+- name: Disabling MariaDB on-boot start
+  include_tasks: disable_service.yml
+
+- name : Flush handlers
+  meta: flush_handlers

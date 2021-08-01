@@ -1,0 +1,17 @@
+#/etc/named.conf vars file 
+allow_query: localhost;10.100.0.0/24;
+zones_root: "/var/named"
+zones_data: "{{ zones_root + '/data/' }}"
+zones_dump: "{{ zones_data + 'dump.db' }}"
+zones_stats: "{{ zones_data + 'named_stats.txt' }}"
+zones_memstats: "{{ zones_data + 'named_mem_stats.txt' }}"
+zones_recursing: "{{ zones_data + 'named.recursing' }}"
+zones_secroots: "{{ zones_data + 'named.secroots' }}"
+#Zones
+zonefile_location: /var/named
+  #Forward
+fwd_zone_name: "ramiyoeun.lan"
+fwd_db_filename: "ramiyoeun.lan"
+  #Reverse
+rvrs_zone_name: "0.100.10.in-addr.arpa"
+rvrs_db_filename: "0.100.10.in-addr.arpa"

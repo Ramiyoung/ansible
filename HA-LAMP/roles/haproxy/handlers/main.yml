@@ -1,0 +1,12 @@
+---
+# handlers file for haproxy
+- name : reload HAproxy
+  ansible.builtin.service: 
+    name : haproxy
+    state: reloaded
+  when: ansible_facts.hostname == HAproxy_main_node
+
+- name : reload firewalld
+  ansible.builtin.service: 
+    name: firewalld 
+    state: reloaded

@@ -1,0 +1,20 @@
+---
+# tasks file for bind9
+# including vars files
+- name: including vars file for bind9 config
+  include_vars: named.conf.yml
+
+- name: including vars file for forward {{ fwd_ramiyoeun_zone_name }} zone
+  include_vars: vars/zones/forward/ramiyoeun.lan.yml
+
+- name: including vars file for reverse {{ rvrs_ramiyoeun_zone_name }} zone
+  include_vars: vars/zones/reverse/0.100.10.in-addr.arpa.yml
+
+- name: Installing and configuring necessary dependencies
+  include_tasks: common.yml
+  
+- name: Enabling DNS service through local firewall
+  include_tasks: firewalld.yml
+
+- name: Configuring bind9 services and zones 
+  include_tasks: dnsconfig.yml

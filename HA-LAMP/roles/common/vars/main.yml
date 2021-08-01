@@ -1,0 +1,19 @@
+---
+# vars file for base
+# Packages/dependencies
+OS_family: "{{ ansible_facts['os_family'] }}"
+OS_distro: "{{ ansible_facts['distribution'] }}"
+OS_release: "{{ ansible_facts['distribution_release'] }}"
+
+task_dir: "{{ OS_family + '/' + OS_release }}"
+vars_dir: "{{ OS_family + '/' + OS_release }}"
+
+backports_repo: deb http://deb.debian.org/debian buster-backports main contrib non-free
+backports_repo_state: present
+common_packages_version: latest
+selinux_packages_version: latest
+
+# firewalld configuration
+firewalld_service: firewalld
+firewalld_state: started
+firewalld_enabled: yes

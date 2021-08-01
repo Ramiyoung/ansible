@@ -1,0 +1,8 @@
+---
+- name : Adding {{ dns_firewalld_service }} services through local firewall
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: "{{ dns_firewalld_service_permanent }}"
+    state: "{{ dns_firewalld_service_state }}"
+  with_items: "{{ dns_firewalld_service }}"
+  notify: reload firewalld

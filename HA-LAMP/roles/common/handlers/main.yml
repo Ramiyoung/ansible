@@ -1,0 +1,7 @@
+---
+# handlers file for base
+- name : reload firewalld
+  service: name=firewalld state=reloaded
+
+- name : server reboot
+  reboot:

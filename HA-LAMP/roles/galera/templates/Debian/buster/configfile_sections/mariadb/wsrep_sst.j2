@@ -1,0 +1,11 @@
+[mariadb]
+wsrep_sst_method = {{ wsrep_sst_method }}
+wsrep_sst_auth = {{ wsrep_sst_auth }}
+wsrep_cluster_name = "{{ wsrep_cluster_name }}"
+wsrep_sst_donor = {{ wsrep_sst_donor }}
+wsrep_node_name = "{{ wsrep_node_name }}"
+{% for _ip in ansible_facts['all_ipv4_addresses'] %}
+{% if _ip in mariadb_hosts|map(attribute="ip")%}
+wsrep_node_address = "{{ _ip }}"
+{% endif %}
+{% endfor %}

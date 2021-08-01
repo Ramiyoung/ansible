@@ -1,0 +1,10 @@
+---
+# SELinux packages configuration
+selinux_packages:
+  - selinux-basics
+  - selinux-policy-default
+  - selinux-utils
+  - setools
+  - auditd
+
+selinux_activate_cmd: selinux-activate

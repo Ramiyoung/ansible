@@ -1,0 +1,8 @@
+- name: Sending MariaDB Galera Data-at-Rest encryption keys
+  ansible.builtin.copy:
+    src: "{{ item.source_file }}"
+    dest: "{{ item.dest_file }}"
+    owner: "{{ encrypted_keyfile_owner }}"
+    group: "{{ encrypted_keyfile_group }}"
+    mode: "{{ encrypted_keyfile_mode }}"
+  loop: "{{ encryption_keys }}"

@@ -1,0 +1,31 @@
+---
+# vars file for galera
+OS_family: "{{ ansible_facts['os_family'] }}"
+OS_distro: "{{ ansible_facts['distribution'] }}"
+OS_release: "{{ ansible_facts['distribution_release'] }}"
+
+role_dir: "{{ playbook_dir + '/roles/galera' }}"
+
+main_task_dir: "{{ role_dir + '/tasks' }}"
+main_vars_dir: "{{ role_dir + '/vars' }}"
+main_template_dir: "{{ role_dir + '/templates' }}"
+
+OS_template_dir: "{{ main_template_dir + '/' + OS_family + '/' + OS_release }}"
+OS_task_dir: "{{ main_task_dir + '/' + OS_family + '/' + OS_release }}"
+OS_vars_dir: "{{ main_vars_dir + '/' + OS_family + '/' + OS_release }}"
+
+# Modify variables here and only
+# Remember to modify vault.yml to have custom mariabackup_sst_pwd per environment
+mariadb_hosts:
+  - { hostname: mariadb-01, ip: 10.100.0.81 }
+  - { hostname: mariadb-02, ip: 10.100.0.82 }
+  - { hostname: mariadb-03, ip: 10.100.0.83 }
+CA_CN: "prod-Galera-MFaJ_CA"
+server_CN: "prod-MariaDB-Galera_MFaJ_server"
+CA_key: "prod-Galera_MFaJ-CA-key.pem"
+CA_cert: "prod-Galera_MFaJ-CA.pem"
+CA_config: "prod-Galera_MFaJ.conf"
+serverCert: "prod-Galera-MFaJ.crt"
+serverReq: "prod-Galera-MFaJ-req.pem"
+serverKey: "prod-Galera-MFaJ.key"
+server_config: "prod-Galera-MFaJ.conf"

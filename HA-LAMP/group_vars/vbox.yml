@@ -1,0 +1,7 @@
+---
+ansible_user : vagrant
+ansible_ssh_private_key_file : /home/alx/repo/vagrant-vm/id_rsa
+ansible_ssh_port : 22
+ansible_become : yes
+ansible_become_user : root
+ansible_become_method : sudo

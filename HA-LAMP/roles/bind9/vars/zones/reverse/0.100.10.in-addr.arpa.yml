@@ -1,0 +1,13 @@
+---
+# reverse ramiyoeun.lan zone vars file
+rvrs_ramiyoeun_zone_template: 0.100.10.in-addr.arpa.j2
+rvrs_ramiyoeun_zonefile: "{{ zones_root + '/0.100.10.in-addr.arpa' }}"
+rvrs_ramiyoeun_zone_name: ramiyoeun.lan
+rvrs_ramiyoeun_primary_zone_name: "0.100.10.in-addr.arpa"
+rvrs_ramiyoeun_root_zone_name: "{{ 'root.' + rvrs_ramiyoeun_zone_name + '.' }}"
+rvrs_ramiyoeun_lan_ttl: 86400
+rvrs_ramiyoeun_lan_serial: 2021052100
+rvrs_ramiyoeun_lan_refresh: 3600
+rvrs_ramiyoeun_lan_retry: 1800
+rvrs_ramiyoeun_lan_expire: 604800
+rvrs_ramiyoeun_lan_min_TTL: 43200

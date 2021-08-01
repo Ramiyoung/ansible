@@ -1,0 +1,19 @@
+mysqld_section_template: "{{ OS_template_dir + '/configfile_sections/mysqld' }}"
+mysqld_section_tde_template: "{{ mysqld_section_template + '/tde.j2' }}"
+
+#[mysqld]
+# Data-at-Rest encryption
+plugin_load_add: "file_key_management"
+file_key_management: "ON"
+file_key_management_filename: "{{ encrypted_keyfile_dest }}"
+file_key_management_filekey: "{{ encryption_keyfile_pwd_dest }}"
+file_key_management_encryption_algorithm: "aes_cbc"
+encrypt_binlog: "ON"
+encrypt_tmp_disk_tables: "ON"
+encrypt_tmp_files: "ON"
+aria_encrypt_tables: "ON"
+innodb_encrypt_tables: "ON"
+innodb_encrypt_temporary_tables: "ON"
+innodb_encrypt_log: "ON"
+innodb_encryption_threads: "4"
+innodb_encryption_rotate_key_age: "1"

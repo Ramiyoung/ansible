@@ -1,0 +1,7 @@
+- name: Setting up constraint colocation (vip with HAproxy)
+  ansible.builtin.command:
+    cmd: "{{ pcsd_constraint_colocation_add }} {{ pcmk_ha_service_name }} with {{ pcmk_ha_vip_name }} {{ pcsd_constraint_colocation_add_lvl }}"
+
+- name: Setting up constraint order (vip then HAproxy)
+  ansible.builtin.command:
+    cmd: "{{ pcsd_constraint_colocation_order }} {{ pcmk_ha_vip_name }} then {{ pcmk_ha_service_name }}"

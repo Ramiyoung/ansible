@@ -1,0 +1,9 @@
+- name: Update default index.html configuration safely
+  ansible.builtin.template:
+    src: "{{ nginx_index_template_file }}"
+    dest: "{{ nginx_index_file }}"
+    owner: "{{ nginx_index_file_owner }}"
+    group: "{{ nginx_index_file_group }}"
+    mode: "{{ nginx_config_file_mode }}"
+    backup: "{{ nginx_backup }}"
+  notify: reload nginx

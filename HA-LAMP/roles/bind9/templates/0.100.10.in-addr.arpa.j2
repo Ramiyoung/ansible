@@ -1,0 +1,16 @@
+$TTL {{ rvrs_ramiyoeun_lan_ttl }}
+@   IN  SOA {{ rvrs_ramiyoeun_primary_zone_name }}  {{ rvrs_ramiyoeun_root_zone_name }} (
+    {{ rvrs_ramiyoeun_lan_serial }} ;Serial
+    {{ rvrs_ramiyoeun_lan_refresh }} ;Refresh
+    {{ rvrs_ramiyoeun_lan_retry }} ;Retry
+    {{ rvrs_ramiyoeun_lan_expire }} ;Expire
+    {{ rvrs_ramiyoeun_lan_min_TTL }} );Minimum TTL
+;Name Server Information
+@   IN  NS  {{ ansible_facts.hostname }}
+
+;IP address of Name Server
+{{ ansible_facts.hostname }}    IN  A   {{ ansible_facts.eth1.ipv4.address }}
+
+;Reverse lookup for Name Server
+4   IN  PTR {{ ansible_facts.hostname }}
+3   IN  PTR web-01

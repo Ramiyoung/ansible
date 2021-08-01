@@ -1,0 +1,46 @@
+# BEGIN : Galera section (mandatory)- ANSIBLE_MANAGED_BLOCK
+[galera]
+# Mandatory
+wsrep_provider = {{ wsrep_provider }}
+wsrep_cluster_address = {{ wsrep_cluster_address }}
+binlog_format = {{ binlog_format }}
+default_storage_engine = {{ default_storage_engine }}
+innodb_autoinc_lock_mode = {{ innodb_autoinc_lock_mode }}
+innodb_doublewrite = {{ innodb_doublewrite }}
+query_cache_size = {{ query_cache_size }}
+wsrep_on = {{ wsrep_on }}
+bind-address = {{ bind_address }}
+# END : Galera section (mandatory)- ANSIBLE_MANAGED_BLOCK
+# BEGIN : Galera section (mandatory) - ANSIBLE_MANAGED_BLOCK
+# Optional
+innodb_flush_log_at_trx_commit = {{ innodb_flush_log_at_trx_commit }}
+wsrep_slave_threads = {{ wsrep_slave_threads }}
+# END : Galera section (mandatory) - ANSIBLE_MANAGED_BLOCK
+# BEGIN : MariaDB section (wsrep and sst) - ANSIBLE_MANAGED_BLOCK
+[mariadb]
+wsrep_sst_method = {{ wsrep_sst_method }}
+wsrep_sst_auth = {{ wsrep_sst_auth }}
+wsrep_cluster_name = {{ wsrep_cluster_name }}
+wsrep_sst_donor = {{ wsrep_sst_donor }}
+wsrep_node_name = "{{ wsrep_node_name }}"
+{% for _ip in ansible_facts['all_ipv4_addresses'] %}
+{% if _ip in mariadb_hosts|map(attribute="ip")%}
+wsrep_node_address = "{{ _ip }}"
+{% endif %}
+{% endfor %}
+# END : MariaDB section (wsrep and sst) - ANSIBLE_MANAGED_BLOCK
+# BEGIN : MariaDB section (ssl_defaults) - ANSIBLE_MANAGED_BLOCK
+#SSL communications (defaults)
+ssl_cert = {{ ssl_cert }}
+ssl_key = {{ ssl_key }}
+ssl_ca = {{ ssl_ca }}
+wsrep_provider_options="{{ wsrep_provider_options }}"
+# END : MariaDB section (ssl_defaults) - ANSIBLE_MANAGED_BLOCK
+# BEGIN : MariaDB section (logging) - ANSIBLE_MANAGED_BLOCK
+# Logging
+slow_query_log
+log-basename = {{ log_basename }}
+slow_query_log_file = {{ slow_query_log_file }}
+log_output = {{ log_output }}
+log_error = {{ log_error }}
+# END : MariaDB section (logging) - ANSIBLE_MANAGED_BLOCK

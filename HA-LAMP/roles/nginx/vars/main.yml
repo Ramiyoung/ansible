@@ -1,0 +1,16 @@
+---
+# vars file for nginx
+nginx_package: nginx
+nginx_package_version: latest
+
+nginx_service_name: nginx
+nginx_service_enabled: yes
+nginx_service_status: started
+
+nginx_index_template_file: index.html.j2
+nginx_index_path: /usr/share/doc/HTML
+nginx_index_file: "{{ nginx_index_path }}/index.html"
+nginx_index_file_owner: root
+nginx_index_file_group: root
+nginx_config_file_mode: '0755'
+nginx_backup: yes

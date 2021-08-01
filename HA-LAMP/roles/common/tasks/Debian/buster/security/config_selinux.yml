@@ -1,0 +1,9 @@
+---
+- name : Installing SELinux packages
+  apt:
+    name: "{{ selinux_packages }}"
+    state: "{{ selinux_packages_version }}"
+
+- name : Activating SELinux
+  ansible.builtin.command: "{{ selinux_activate_cmd }}"
+  notify: server reboot

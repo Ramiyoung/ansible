@@ -1,0 +1,31 @@
+---
+# tasks file for httpd
+- name : Installing httpd
+  yum :
+    name : httpd
+    state: latest
+
+- name : Starting and enabling httpd
+  ansible.builtin.service :
+    name: httpd
+    enabled: yes
+    state: started 
+
+- name : create sites directories
+  ansible.builtin.file: 
+    path: "{{item}}"
+    state: directory
+  loop:
+    - "{{sites_available}}"
+    - "{{sites_enable}}"
+
+- name : Copying new index.html to defaut web directory
+  ansible.builtin.template: 
+    src: index.html.j2
+    dest: "{{apache_docroot}}/index.html"
+
+- name: copy httpd.conf
+  ansible.builtin.template:
+    src: httpd.conf-{{ansible_os_family}}.j2
+    dest: "{{apache_config}}"
+  notify: restart apache

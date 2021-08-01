@@ -1,0 +1,12 @@
+---
+- name: Building CA private Key
+  local_action:
+    module: ansible.builtin.shell
+    cmd: "{{ build_CAkey_cmd }}"
+  run_once: True
+
+- name: Building CA certificate
+  local_action:
+    module: ansible.builtin.shell
+    cmd: "{{ build_CAcert_cmd }}"
+  run_once: True

@@ -1,0 +1,10 @@
+---
+# handlers file for nginx
+- name : reload firewalld
+  ansible.builtin.service: 
+    name: firewalld 
+    state: reloaded
+
+- name : reload nginx
+  ansible.builtin.command: 
+    cmd: nginx -s reload

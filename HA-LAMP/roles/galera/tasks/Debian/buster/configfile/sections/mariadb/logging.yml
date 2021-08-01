@@ -1,0 +1,13 @@
+---
+- name : "Setting MariaDB logging parameters at {{ galera_conf_file }}"
+  ansible.builtin.blockinfile:
+    create: yes
+    path: "{{ galera_conf_file }}"
+    owner: "{{ galera_conf_file_owner }}"
+    group: "{{ galera_conf_file_group }}"
+    mode: "{{ galera_conf_file_mode }}"
+    marker: "# {mark} : MariaDB section (logging) - ANSIBLE_MANAGED_BLOCK"
+    insertafter: "# END : MariaDB section (wsrep and sst) - ANSIBLE_MANAGED_BLOCK"
+    state: present
+    block: |
+      {{ lookup ('template', mariadb_section_logging_template )}}

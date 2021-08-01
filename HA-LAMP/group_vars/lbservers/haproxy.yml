@@ -1,0 +1,5 @@
+---
+pacemaker_hosts:
+  haproxy01: 10.100.0.91
+  haproxy02: 10.100.0.92
+hosts_file: /etc/hosts

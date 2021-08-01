@@ -1,0 +1,7 @@
+- name : Adding {{ HAproxy_firewalld_service }} services through local firewall
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: "{{ HAproxy_firewalld_service_permanent }}"
+    state: "{{ HAproxy_firewalld_service_state }}"
+  with_items: "{{ HAproxy_firewalld_service }}"
+  notify: reload firewalld

@@ -1,0 +1,23 @@
+---
+# tasks file for httpd
+- name : Installing nginx
+  yum :
+    name : "{{ nginx_package }}"
+    state: "{{ nginx_package_version }}"
+
+- name : Starting and enabling nginx
+  ansible.builtin.service :
+    name: "{{ nginx_service_name }}"
+    enabled: "{{ nginx_service_enabled }}"
+    state: "{{ nginx_service_status }}"
+
+- name : Starting and enabling http and https firewalld service 
+  ansible.posix.firewalld :
+    service : "{{ item }}"
+    permanent: "{{ nginx_firewalld_service_permanent }}"
+    state: "{{ nginx_firewalld_service_status }}"
+  with_items: "{{ nginx_firewalld_services }}"
+  notify: reload firewalld
+
+- name: Reloading firewalld after adding http and https service
+  meta: flush_handlers

@@ -1,0 +1,48 @@
+host_file: /etc/hosts
+mysql_conf_root: /etc/mysql
+mariadb_conf_root: "{{ mysql_conf_root + '/mariadb.conf.d'}}"
+#Dependencies
+mariadb_dependencies_packages_state: latest
+mariadb_dependencies_packages:
+  - software-properties-common
+  - dirmngr
+  - socat
+
+#Repository
+mariadb_release_signing_key_state: present
+mariadb_release_signing_key: https://mariadb.org/mariadb_release_signing_key.asc
+mariadb_repository_state: present
+mariadb_repository: deb [arch=amd64,arm64,ppc64el] https://ftp.igh.cnrs.fr/pub/mariadb/repo/10.5/debian buster main
+#Packages for galera
+mariadb_galera_packages:
+  - mariadb-server
+  - mariadb-client
+  - mariadb-backup
+mariadb_galera_packages_state: latest
+
+#mysql_secure_installation
+msi_user: root
+msi_script_owner: root
+msi_script_group: root
+msi_script_mode: "0644"
+msi_script_state: absent
+msi_script: /tmp/mysql_secure_installation.sql
+msi_template_script: "{{ OS_template_dir + '/common/mysql_secure_installation.sql.j2' }}"
+
+#Galera configuration file
+galera_conf_file_bck: yes
+galera_conf_file_template : "{{ OS_template_dir + '/configfile_sections/00-galera.cnf.j2' }}"
+galera_conf_file: "{{ mariadb_conf_root + '/00-galera.cnf'}}"
+galera_enc_file_bck: yes
+galera_enc_file: "{{ mariadb_conf_root + '/encryption.cnf'}}"
+galera_conf_file_owner: root
+galera_conf_file_group: root
+galera_conf_file_mode: "0644" 
+
+  ## mariabackup sst privileges script settings
+mariabackup_sst_privileges_template_script: "{{ OS_template_dir + '/common/mariabackup.sql.j2' }}"
+mariabackup_sst_privileges_script: /tmp/mariabackup.sql
+mariabackup_sst_privileges_script_owner: root
+mariabackup_sst_privileges_script_group: root
+mariabackup_sst_privileges_script_mode: "0644"
+mariabackup_sst_privileges_script_state: absent

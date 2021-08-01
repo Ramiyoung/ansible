@@ -1,0 +1,5 @@
+---
+- name: "Add {{ OS_release }}-backports repository into sources list"
+  ansible.builtin.apt_repository:
+    repo: "{{ backports_repo }}"
+    state: "{{ backports_repo_state }}"

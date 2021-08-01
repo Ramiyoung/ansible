@@ -1,0 +1,5 @@
+---
+- name : Installing SELinux packages
+  yum:
+    name: "{{ selinux_packages }}"
+    state: "{{ selinux_packages_version }}"

@@ -1,0 +1,22 @@
+---   
+- name : Updating cache
+  apt:
+    update_cache: yes
+
+- name : "Installing common packages {{ common_packages }}"
+  apt:
+    name: "{{ common_packages }}"
+    state: "{{ common_packages_version }}"
+
+- name : "Installing packages from {{ OS_release }}-backports"
+  apt:
+    name: "{{ backports_packages }}"
+    default_release: "{{ OS_release }}-backports"
+    state: "{{ common_packages_version }}"
+
+- name : "Removing some packages : {{ rm_packages }}"
+  apt:
+    name: "{{ rm_packages }}"
+    state: absent
+    purge: yes
+    autoremove: yes

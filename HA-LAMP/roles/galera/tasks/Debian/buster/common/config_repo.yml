@@ -1,0 +1,16 @@
+---
+- name : Installing MariaDB release signing key
+  ansible.builtin.apt_key:
+    url: "{{ mariadb_release_signing_key }}"
+    state: "{{ mariadb_release_signing_key_state }}"
+
+- name : Adding MariaDB repo
+  ansible.builtin.apt_repository:
+    repo: "{{ mariadb_repository }}"
+    state: "{{ mariadb_repository_state }}"
+
+- name : "Installing MariaDB packages for Galera Cluster : {{ mariadb_galera_packages }}"
+  ansible.builtin.apt:
+    name: "{{ mariadb_galera_packages }}"
+    state: "{{ mariadb_galera_packages_state }}"
+    update_cache: yes

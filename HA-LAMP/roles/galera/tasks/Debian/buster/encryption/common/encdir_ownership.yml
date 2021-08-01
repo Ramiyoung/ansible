@@ -1,0 +1,8 @@
+---
+- name: "Recursively change ownership of {{ encryption_keys_dir }}"
+  ansible.builtin.file:
+    path: "{{ encryption_keys_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ encrypted_keyfile_owner }}"
+    group: "{{ encrypted_keyfile_group }}"

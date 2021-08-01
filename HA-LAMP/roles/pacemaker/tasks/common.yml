@@ -1,0 +1,21 @@
+---
+- name : Installing pacemaker/corosync/pcsd packages
+  yum:
+    name: "{{ pcmk_packages }}"
+    state: "{{ pcmk_packages_version }}"
+  
+- name : Adding high-availability service through local firewall
+  ansible.posix.firewalld:
+    service: "{{ firewalld_HA_service }}"
+    permanent: "{{ firewalld_HA_enabled }}"
+    state: "{{ firewalld_HA_state }}"
+  notify: reload firewalld
+
+- name: Reloading firewalld after adding high-availability service
+  meta: flush_handlers
+
+- name : Initializing /etc/hosts file
+  ansible.builtin.lineinfile:
+    path: "{{ hosts_file }}"
+    line: "{{ item.value }} {{ item.key }}"
+  with_dict: "{{ pacemaker_hosts }}"

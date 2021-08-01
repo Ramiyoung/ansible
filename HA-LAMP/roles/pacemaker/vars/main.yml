@@ -1,0 +1,28 @@
+---
+# vars file for pacemaker
+# Packages/dependencies
+pcmk_packages:
+  - pacemaker
+  - pcs
+  - psmisc
+pcmk_packages_version: latest
+
+#Pacemaker cluster configuration
+pcmk_cluster_name: HAproxy 
+pcmk_ha_vip_name: HAproxy-vip
+pcmk_ha_group_name: HAproxy-Group
+
+#firewalld configuration
+firewalld_HA_service: high-availability
+firewalld_HA_enabled: yes #permanent
+firewalld_HA_state: enabled
+
+#pcsd configuration
+pcsd_service: pcsd
+pcsd_state: started
+pcsd_enabled: yes
+pcsd_auth_cmd: pcs cluster auth
+pcsd_setup_cmd: pcs cluster setup --name
+pcsd_start_cmd: pcs cluster start --all
+pcsd_stonith_disable_cmd: pcs property set stonith-enabled=false
+

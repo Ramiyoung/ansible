@@ -1,0 +1,7 @@
+#SST with SSL support
+sst_section_template: "{{ OS_template_dir + '/configfile_sections/sst' }}"
+sst_section_ssl_template: "{{ sst_section_template + '/ssl_sst.j2' }}"
+
+encrypt: 3
+tkey: "{{ ssl_privateKey }}"
+tcert: "{{ ssl_certificate }}"

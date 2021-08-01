@@ -1,0 +1,32 @@
+---
+#- name: Print all available facts
+#  ansible.builtin.debug:
+#    var: ansible_facts.hostname
+- name: Update {{ bind9_config }}
+  ansible.builtin.template:
+    src: "{{ bind9_config_template }}"
+    dest: "{{ bind9_config }}"
+    owner: "{{ bind9_config_owner }}"
+    group: "{{ bind9_config_group }}"
+    mode: "{{ bind9_config_mode }}"
+    backup: yes
+
+- name: Adding forward {{ fwd_ramiyoeun_zone_name }} zone in {{ zones_root }}
+  ansible.builtin.template:
+    src: "{{ fwd_ramiyoeun_zone_template }}"
+    dest: "{{ fwd_ramiyoeun_zonefile }}"
+    owner: "{{ zonefile_owner }}"
+    group: "{{ zonefile_group }}"
+    mode: "{{ zonefile_mode }}"
+    backup: yes
+
+- name: Adding reverse {{ rvrs_ramiyoeun_zone_name }} zone in {{ zones_root }}
+  ansible.builtin.template:
+    src: "{{ rvrs_ramiyoeun_zone_template }}"
+    dest: "{{ rvrs_ramiyoeun_zonefile }}"
+    owner: "{{ zonefile_owner }}"
+    group: "{{ zonefile_group }}"
+    mode: "{{ zonefile_mode }}"
+    backup: yes
+  notify: restart named
+

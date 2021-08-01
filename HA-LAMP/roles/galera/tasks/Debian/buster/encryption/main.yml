@@ -1,0 +1,25 @@
+---
+# tasks for encryption subtasks
+- name: "Building encryption settings directory"
+  include_tasks: "{{ OS_task_dir + '/encryption/common/build_encdir.yml' }}"
+  ## Building Data-at-Rest encryption keys
+- name: "Building Mariadb Galera Data-at-Rest Encryption keys"
+  include_tasks: "{{ OS_task_dir + '/encryption/data-at-rest/buildkeys.yml' }}"
+  ## Building SSL self-signed certificate 
+- name: "Building Mariadb Galera SSL CA and server configuration req"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/build-req-confs.yml' }}"
+
+- name: "Building Mariadb Galera SSL CA"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/build-ca.yml' }}"
+
+- name: "Building Mariadb Galera SSL server cert"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/build-cert.yml' }}"
+
+- name: "Sending MariaDB Galera SSL certificates"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/syncCert.yml' }}"
+
+- name: "Sending MariaDB Galera Data at Rest Encryption keys"
+  include_tasks: "{{ OS_task_dir + '/encryption/data-at-rest/synckeys.yml' }}"
+
+- name: "Changing ownership of encryption settings directory"
+  include_tasks: "{{ OS_task_dir + '/encryption/common/encdir_ownership.yml' }}"

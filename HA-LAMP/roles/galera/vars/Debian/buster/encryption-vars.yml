@@ -1,0 +1,131 @@
+# OpenSSL configurations
+  ## Data-at-Rest
+    ### Encryption settings
+encryption_key_output: "hex"
+encryption_key_size: "32"
+    ### Encryption password (keyfile)
+encryption_pwd_key_size: "128"
+encryption_algorithm: "aes-256-cbc"
+encryption_digest: "sha1"
+
+  ## SSL communications
+    ### CA configuration
+CA_emailAddress: "anguyen.ext@dataone.fr"
+CA_organization: "Groupe Diffusion Plus"
+CA_organizationUnit: "Direction des Systèmes d'Informations"
+CA_location: "Saint-Aubin-sur-Gaillon"
+CA_state: "Eure" 
+CA_country: "FR"
+      #### OpenSSL options
+        ##### CA
+          ###### Key
+CA_key_type: "genrsa"
+CA_key_size: "2048"
+          ###### Cert
+CA_cert_exp: "365000"
+    ### Server certificate configuration
+server_emailAddress: "anguyen.ext@dataone.fr"
+server_organization: "Groupe Diffusion Plus"
+server_organizationUnit: "Direction des Systèmes d'Informations"
+server_location: "Saint-Aubin-sur-Gaillon"
+server_state: "Eure" 
+server_country: "FR"
+      #### OpenSSL options
+        ##### Key
+serverKey_size: "rsa:2048" #and type
+serverCert_exp: "365000"
+        ##### Cert
+serverCert_serial: "01"
+
+
+# Certificates/Keys
+  ## Data-at-Rest
+tmp_encryptionKey: keyfile.tmp
+plain_encryptionKey: keyfile
+enc_encryptionKey: keyfile.key
+secret_encryptionKey: keyfile.enc
+  ## SSL communication
+    ### CA
+CA_config_template: "ca.conf.j2"
+    ### Server
+server_config_template: "server.conf.j2"
+
+
+# Certificates/Keys location
+files_dir: "/home/alx/repo/ansible-gdp/playbooks/vagrant/HA-LAMP/roles/galera/files"
+  ### Data-at-Rest
+    #### Local
+tmp_local_keyfile_storage: "{{ files_dir + '/' + tmp_encryptionKey }}"
+local_keyfile_storage: "{{ files_dir + '/' + plain_encryptionKey }}"
+local_keyfile_pwd_storage: "{{ files_dir + '/' + secret_encryptionKey }}"
+local_encrypted_keyfile_storage: "{{ files_dir + '/' + enc_encryptionKey }}"
+    #### Remote
+encryption_keys_dir: "{{ mysql_conf_root + '/encryption'}}"
+encryption_keyfile_dest: "{{ encryption_keys_dir + '/' + plain_encryptionKey }}"
+encryption_keyfile_pwd_dest: "{{ encryption_keys_dir + '/' + secret_encryptionKey }}"
+encrypted_keyfile_dest: "{{ encryption_keys_dir + '/' + enc_encryptionKey }}"
+encryption_keys:
+  - { source_file: "{{ local_keyfile_pwd_storage }}", dest_file: "{{ encryption_keyfile_pwd_dest }}" }
+  - { source_file: "{{ local_encrypted_keyfile_storage }}", dest_file: "{{ encrypted_keyfile_dest }}" }
+encrypted_keyfile_owner: mysql
+encrypted_keyfile_group: root
+encrypted_keyfile_mode: "0775" 
+  ### SSL communication
+    #### Template
+CAconf_template: "{{ OS_template_dir + '/encryption/ssl/' + CA_config_template }}"
+serverconf_template: "{{ OS_template_dir + '/encryption/ssl/' + server_config_template }}"
+local_CAconf_storage: "{{ files_dir + '/' + CA_config }}"
+local_serverConfig_storage: "{{ files_dir + '/' + server_config }}"
+req_configs:
+  - { template_file: "{{ CAconf_template }}", conf_file: "{{ local_CAconf_storage }}" }
+  - { template_file: "{{ serverconf_template }}", conf_file: "{{ local_serverConfig_storage }}" }
+    #### Local
+      ##### CA
+local_CAkey_storage: "{{ files_dir + '/' + CA_key }}"
+local_CAcert_storage: "{{ files_dir + '/' + CA_cert }}"
+      ##### Server
+local_serverReq_storage: "{{ files_dir + '/' + serverReq }}"
+local_serverKey_storage: "{{ files_dir + '/' + serverKey }}"
+local_serverCert_storage: "{{ files_dir + '/' + serverCert }}"
+    #### Remote
+ssl_certificate: "{{ encryption_keys_dir + '/' + serverCert }}"
+ssl_privateKey: "{{ encryption_keys_dir + '/' + serverKey }}"
+ssl_cacert: "{{ encryption_keys_dir + '/' + CA_cert }}"
+SSL_certificates:
+  - { source_file: "{{ local_CAcert_storage }}", dest_file: "{{ ssl_cacert }}" }
+  - { source_file: "{{ local_serverKey_storage }}", dest_file: "{{ ssl_privateKey }}" }
+  - { source_file: "{{ local_serverCert_storage }}", dest_file: "{{ ssl_certificate }}" }
+
+# OpenSSL commands
+  ## Data-at-Rest
+build_encryption_key_cmd: "openssl rand {{ '-' + encryption_key_output }} \
+{{ encryption_key_size }}"
+build_encryption_key_pwd_cmd: "openssl rand {{ '-' + encryption_key_output }} \
+{{ encryption_pwd_key_size }}"
+build_keyfile_encryption_cmd: "openssl enc {{ '-' + encryption_algorithm }} \
+-md {{ encryption_digest }} \
+-in {{ local_keyfile_storage }} \
+-out {{ local_encrypted_keyfile_storage }} \
+-pass file:{{ local_keyfile_pwd_storage }} "
+  ## SSL Communications
+    ### CA
+build_CAkey_cmd: "openssl {{ CA_key_type }} {{ CA_key_size }} > {{ local_CAkey_storage }}"
+build_CAcert_cmd:  "openssl req -new \
+-x509 -nodes -days {{ CA_cert_exp }} \
+-key {{ local_CAkey_storage }} \
+-out {{ local_CAcert_storage }} \
+-config {{ local_CAconf_storage }}"
+    ### Server
+build_serverCert_cmd: "openssl req -newkey {{ serverKey_size }} \
+-days {{ serverCert_exp }} \
+-nodes \
+-keyout {{ local_serverKey_storage }} \
+-out {{ local_serverReq_storage }} \
+-config {{ local_serverConfig_storage }}"
+sign_serverCert_cmd: "openssl x509 -req \
+-in {{ local_serverReq_storage }} \
+-days {{ serverCert_exp }} \
+-CA {{ local_CAcert_storage }} \
+-CAkey {{ local_CAkey_storage }} \
+-set_serial {{ serverCert_serial }} \
+-out {{ local_serverCert_storage }}"

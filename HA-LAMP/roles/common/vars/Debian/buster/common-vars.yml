@@ -1,0 +1,18 @@
+---
+# Packages/dependencies
+common_packages: 
+  - net-tools
+  - vim
+  - software-properties-common
+  - tcpdump
+  - wget
+  - curl
+  - firewalld
+  - python-lxml
+  - htop
+  
+backports_packages:
+  - iptables #https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=931722
+
+rm_packages: 
+  - apparmor

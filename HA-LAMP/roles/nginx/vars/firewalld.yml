@@ -1,0 +1,5 @@
+nginx_firewalld_service_permanent: yes
+nginx_firewalld_service_status: enabled
+nginx_firewalld_services:
+  - http
+  - https

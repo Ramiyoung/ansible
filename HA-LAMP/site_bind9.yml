@@ -1,0 +1,8 @@
+---
+- name : Install and configure bind9
+  hosts: dns
+  tags: init
+  
+  roles:
+    - common
+    - bind9
