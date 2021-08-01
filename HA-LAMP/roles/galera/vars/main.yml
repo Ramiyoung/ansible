@@ -16,6 +16,8 @@ OS_vars_dir: "{{ main_vars_dir + '/' + OS_family + '/' + OS_release }}"
 
 # Modify variables here and only
 # Remember to modify vault.yml to have custom mariabackup_sst_pwd per environment
+# Certificates/Keys location
+files_dir: "/home/alx/repo/ansible/HA-LAMP/roles/galera/files"
 mariadb_hosts:
   - { hostname: mariadb-01, ip: 10.100.0.81 }
   - { hostname: mariadb-02, ip: 10.100.0.82 }

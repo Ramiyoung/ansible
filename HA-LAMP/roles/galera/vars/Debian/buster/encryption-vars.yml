@@ -50,9 +50,6 @@ CA_config_template: "ca.conf.j2"
     ### Server
 server_config_template: "server.conf.j2"
 
-
-# Certificates/Keys location
-files_dir: "/home/alx/repo/ansible-gdp/playbooks/vagrant/HA-LAMP/roles/galera/files"
   ### Data-at-Rest
     #### Local
 tmp_local_keyfile_storage: "{{ files_dir + '/' + tmp_encryptionKey }}"
