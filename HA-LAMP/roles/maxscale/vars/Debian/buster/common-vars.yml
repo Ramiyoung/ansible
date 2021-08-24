@@ -1,0 +1,21 @@
+host_file: /etc/hosts
+mysql_conf_root: /etc/mysql
+mariadb_conf_root: "{{ mysql_conf_root + '/mariadb.conf.d'}}"
+#Dependencies
+mariadb_dependencies_packages_state: latest
+mariadb_dependencies_packages:
+  - software-properties-common
+  - dirmngr
+  - socat
+
+#Repository
+mariadb_release_signing_key_state: present
+mariadb_release_signing_key: https://mariadb.org/mariadb_release_signing_key.asc
+mariadb_repository_state: present
+mariadb_repository: deb [arch=amd64,arm64,ppc64el] https://ftp.igh.cnrs.fr/pub/mariadb/repo/10.5/debian buster main
+#Packages for galera
+mariadb_galera_packages:
+  - mariadb-server
+  - mariadb-client
+  - mariadb-backup
+mariadb_galera_packages_state: latest

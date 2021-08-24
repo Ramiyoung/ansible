@@ -1,0 +1,35 @@
+---
+# tasks file for galera
+  #Debian
+- name: common MariaDB configuration for Debian servers
+  block:
+    #Vars
+    - name : Loading Debian variables
+      include_vars: 
+        dir: "{{ OS_vars_dir }}"
+        depth: 2
+
+    #Tasks
+    - name : installing and configuring Debian common settings for Galera MariaDB setup
+      include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
+  
+    - name : Setting Debian common security settings for Galera MariaDB setup
+      include_tasks: "{{ OS_task_dir + '/security/main.yml' }}"
+ 
+    - name : Setting up Debian Galera MariaDB encryption
+      include_tasks: "{{ OS_task_dir + '/encryption/main.yml' }}"
+
+    - name : Deploying MariaDB Galera configuration file 
+      include_tasks: "{{ OS_task_dir + '/configfile/main.yml' }}"
+
+  when: OS_family == "Debian"
+
+  #RHEL
+- name: common configuration for RHEL servers
+  block:
+    - name : installing RHEL common packages
+      include_tasks: "{{ OS_family + '-common.yml' }}"
+
+    - name : installing selinux packages for RHEL
+      include_tasks: "{{ OS_family + '-selinux.yml' }}"
+  when: OS_family == "RedHat"

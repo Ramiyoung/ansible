@@ -1,0 +1,6 @@
+---
+# handlers file for galera
+- name : reload firewalld
+  ansible.builtin.service:
+    name: firewalld
+    state: reloaded

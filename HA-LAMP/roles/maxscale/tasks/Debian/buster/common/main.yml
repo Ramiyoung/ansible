@@ -1,0 +1,13 @@
+---
+# tasks for common subtasks
+- name: Configuring records in {{ host_file }}
+  include_tasks: config_hosts.yml
+
+- name: Installing Galera MariaDB dependencies and packages
+  include_tasks: config_dependencies.yml
+
+- name: Configuring MariaDB repository
+  include_tasks: config_repo.yml
+  
+- name : Flush handlers
+  meta: flush_handlers
