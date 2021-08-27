@@ -8,6 +8,3 @@
 
 - name: Configuring MariaDB repository
   include_tasks: config_repo.yml
-  
-- name : Flush handlers
-  meta: flush_handlers

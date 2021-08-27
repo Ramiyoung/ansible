@@ -1,0 +1,7 @@
+---
+- name : Install and configure MariaDB galera cluster
+  hosts: maxscale
+  
+  roles:
+    - role: common
+    - role: maxscale

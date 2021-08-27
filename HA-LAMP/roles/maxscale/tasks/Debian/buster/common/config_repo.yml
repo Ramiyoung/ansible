@@ -9,8 +9,8 @@
     repo: "{{ mariadb_repository }}"
     state: "{{ mariadb_repository_state }}"
 
-- name : "Installing MariaDB packages for Galera Cluster : {{ mariadb_galera_packages }}"
+- name : "Installing Maxscale package : {{ maxscale_packages }}"
   ansible.builtin.apt:
-    name: "{{ mariadb_galera_packages }}"
-    state: "{{ mariadb_galera_packages_state }}"
+    name: "{{ maxscale_packages }}"
+    state: "{{ maxscale_packages_state }}"
     update_cache: yes

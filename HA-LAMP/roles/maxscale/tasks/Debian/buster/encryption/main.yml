@@ -1,2 +1,20 @@
 ---
-# tasks for encryption subtask
+# tasks for encryption subtasks
+- name: "Building encryption settings directory"
+  include_tasks: "{{ OS_task_dir + '/encryption/common/build_encdir.yml' }}"
+
+  ## Building SSL self-signed certificate 
+- name: "Building Mariadb Maxscale SSL CA and server configuration req"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/build-req-confs.yml' }}"
+
+- name: "Building Mariadb Maxscale SSL CA"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/build-ca.yml' }}"
+
+- name: "Building Mariadb Maxscale SSL server cert"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/build-cert.yml' }}"
+
+- name: "Sending MariaDB Maxscale SSL certificates"
+  include_tasks: "{{ OS_task_dir + '/encryption/ssl/syncCert.yml' }}"
+
+- name: "Changing ownership of encryption settings directory"
+  include_tasks: "{{ OS_task_dir + '/encryption/common/encdir_ownership.yml' }}"

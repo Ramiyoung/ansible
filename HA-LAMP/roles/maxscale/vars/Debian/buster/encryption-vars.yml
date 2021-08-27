@@ -36,7 +36,7 @@ CA_config_template: "ca.conf.j2"
 server_config_template: "server.conf.j2"
 
 # Certificates/Keys location
-files_dir: "/home/alx/repo/ansible-gdp/playbooks/vagrant/HA-LAMP/roles/galera/files"
+files_dir: "/home/alx/repo/ansible/HA-LAMP/roles/maxscale/files"
 
   ### SSL communication
     #### Template
@@ -56,6 +56,10 @@ local_serverReq_storage: "{{ files_dir + '/' + serverReq }}"
 local_serverKey_storage: "{{ files_dir + '/' + serverKey }}"
 local_serverCert_storage: "{{ files_dir + '/' + serverCert }}"
     #### Remote
+encryption_keys_dir: "{{ maxscale_conf_root + '/encryption' }}"
+encrypted_keyfile_owner: maxscale
+encrypted_keyfile_group: root
+encrypted_keyfile_mode: "0775"
 ssl_certificate: "{{ encryption_keys_dir + '/' + serverCert }}"
 ssl_privateKey: "{{ encryption_keys_dir + '/' + serverKey }}"
 ssl_cacert: "{{ encryption_keys_dir + '/' + CA_cert }}"
