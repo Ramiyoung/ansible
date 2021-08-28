@@ -5,17 +5,17 @@
   block:
     #Loading Debian variables
     - name : Loading Debian common variables
-      include_vars: "{{ vars_dir + '/common-vars.yml' }}"
+      include_vars: "{{ Debian_vars_dir + '/common-vars.yml' }}"
 
-    - name : Loading Debian SELinux variables
-      include_vars: "{{ vars_dir + '/security-vars.yml' }}"
+    - name : Loading Debian security variables
+      include_vars: "{{ Debian_vars_dir + '/security-vars.yml' }}"
 
-    #Tasks for Debian
+      #Tasks for Debian
     - name : installing and configuring Debian common packages
-      include_tasks: "{{ task_dir + '/common/main.yml' }}"
+      include_tasks: "{{ Debian_task_dir + '/common/main.yml' }}"
 
     - name : configuring security parameters for Debian
-      include_tasks: "{{ task_dir + '/security/main.yml' }}"
+      include_tasks: "{{ Debian_task_dir + '/security/main.yml' }}"
 
     - name : Flush handlers 
       meta: flush_handlers
@@ -24,10 +24,22 @@
 
   #RHEL
 - name: common configuration for RHEL servers
-  block:
-    - name : installing RHEL common packages
-      include_tasks: "{{ OS_family + '-common.yml' }}"
+  block:  
+    #Loading RHEL variables
+    - name : Loading RHEL common variables
+      include_vars: "{{ RHEL_vars_dir + '/common-vars.yml' }}"
 
-    - name : installing selinux packages for RHEL
-      include_tasks: "{{ OS_family + '-selinux.yml' }}"
+    - name : Loading RHEL security variables
+      include_vars: "{{ RHEL_vars_dir + '/security-vars.yml' }}"
+
+      #Tasks for RHEL
+    - name : installing and configuring DRHEL common packages
+      include_tasks: "{{ RHEL_task_dir + '/common/main.yml' }}"
+
+    - name : configuring security parameters for RHEL
+      include_tasks: "{{ RHEL_task_dir + '/security/main.yml' }}"
+
+    - name : Flush handlers 
+      meta: flush_handlers
+
   when: OS_family == "RedHat"

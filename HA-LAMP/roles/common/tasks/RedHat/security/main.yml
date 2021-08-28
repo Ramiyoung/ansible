@@ -1,0 +1,6 @@
+---
+- name : Configuring SELinux
+  include_tasks: config_selinux.yml
+
+- name : Configuring firewalld
+  include_tasks: config_firewalld.yml

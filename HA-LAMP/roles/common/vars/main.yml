@@ -5,8 +5,11 @@ OS_family: "{{ ansible_facts['os_family'] }}"
 OS_distro: "{{ ansible_facts['distribution'] }}"
 OS_release: "{{ ansible_facts['distribution_release'] }}"
 
-task_dir: "{{ OS_family + '/' + OS_release }}"
-vars_dir: "{{ OS_family + '/' + OS_release }}"
+Debian_task_dir : "{{ OS_family + '/' + OS_release }}"
+Debian_vars_dir : "{{ OS_family + '/' + OS_release }}"
+
+RHEL_task_dir : "{{ OS_family + '/' + OS_distro }}"
+RHEL_vars_dir : "{{ OS_family + '/' + OS_distro }}"
 
 backports_repo: deb http://deb.debian.org/debian buster-backports main contrib non-free
 backports_repo_state: present
