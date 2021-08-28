@@ -1,0 +1,9 @@
+- name : Adding high-availability service through local firewall
+  ansible.posix.firewalld:
+    service: "{{ firewalld_HA_service }}"
+    permanent: "{{ firewalld_HA_enabled }}"
+    state: "{{ firewalld_HA_state }}"
+  notify: reload firewalld
+
+- name: Reloading firewalld after adding high-availability service
+  meta: flush_handlers

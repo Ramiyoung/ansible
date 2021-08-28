@@ -1,5 +1,9 @@
 ---
 pacemaker_hosts:
-  haproxy01: 10.100.0.91
-  haproxy02: 10.100.0.92
-hosts_file: /etc/hosts
+  - { hostname: haproxy-01, ip: 10.100.0.91 }
+  - { hostname: haproxy-02, ip: 10.100.0.92 }
+
+#Pacemaker cluster configuration
+pcmk_cluster_name: HAproxy 
+pcmk_ha_vip_name: HAproxy-vip
+pcmk_ha_group_name: HAproxy-Group

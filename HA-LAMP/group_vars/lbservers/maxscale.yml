@@ -1,0 +1,9 @@
+---
+pacemaker_hosts:
+  - { hostname: maxscale-01, ip: 10.100.0.31 }
+  - { hostname: maxscale-02, ip: 10.100.0.32 }
+
+#Pacemaker cluster configuration
+pcmk_cluster_name: Maxscale
+pcmk_ha_vip_name: Maxscale-vip
+pcmk_ha_group_name: Maxscale-Group

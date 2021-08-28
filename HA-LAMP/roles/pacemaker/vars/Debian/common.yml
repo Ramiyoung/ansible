@@ -1,0 +1,8 @@
+#pcsd configuration
+pcsd_service: pcsd
+pcsd_state: started
+pcsd_enabled: yes
+pcsd_auth_cmd: pcs cluster auth
+pcsd_setup_cmd: pcs cluster setup
+pcsd_start_cmd: pcs cluster start --all
+pcsd_stonith_disable_cmd: pcs property set stonith-enabled=false
