@@ -17,8 +17,8 @@
 
 - name: Retrieving pacemaker hosts (appending hosts)
   set_fact:
-    pcmk_hosts: "{{ pcmk_hosts + [ item.key ]}}"
-  with_dict: "{{ pacemaker_hosts }}"
+    pcmk_hosts: "{{ pcmk_hosts + [ item.hostname ] }}"
+  with_items: "{{ pacemaker_hosts }}"
 
 - name: Initializing pacemaker hosts (list to string)
   set_fact:
@@ -31,7 +31,10 @@
 - name: Initializing cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_setup_cmd }} {{ pcmk_cluster_name }} {{ pcmk_hosts_str }}"
-  when: pacemaker_hosts.main_node|bool == true
+  loop: "{{ lookup('dict', pacemaker_hosts ) }}"
+  when: 
+    - main_node in item.key
+    - true in item.value
 
 - name: Starting cluster
   ansible.builtin.command:
