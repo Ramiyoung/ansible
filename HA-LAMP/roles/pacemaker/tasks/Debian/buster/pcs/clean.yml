@@ -1,0 +1,4 @@
+---
+- name: Cleaning initial cluster
+  ansible.builtin.command: 
+    cmd: "{{ pcsd_destroy_cmd }}"

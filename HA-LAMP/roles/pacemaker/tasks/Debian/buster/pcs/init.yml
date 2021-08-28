@@ -1,16 +1,4 @@
 ---
-- name : Enabling pcs Daemon
-  ansible.builtin.service:
-    name: "{{ pcsd_service }}"
-    state: "{{ pcsd_state }}"
-    enabled: "{{ pcsd_enabled }}"
-
-- name: changing hacluster password
-  ansible.builtin.user:
-    name: "{{ hacluster_user }}"
-    update_password: always
-    password: "{{ hacluster_passwd | password_hash('sha512')}}"
-
 - name: Retrieving pacemaker hosts (empty array)
   set_fact:
     pcmk_hosts: []
@@ -23,25 +11,27 @@
 - name: Initializing pacemaker hosts (list to string)
   set_fact:
     pcmk_hosts_str: "{{ pcmk_hosts | join (' ') }}"
-
+   
 - name: Authenticating all nodes
   ansible.builtin.command: 
     cmd: "{{ pcsd_auth_cmd }} {{ pcmk_hosts_str }} -u {{ hacluster_user }} -p {{ hacluster_passwd }}"
+  with_items: "{{ pacemaker_hosts }}"
+  when: item.main_node
 
 - name: Initializing cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_setup_cmd }} {{ pcmk_cluster_name }} {{ pcmk_hosts_str }}"
-  loop: "{{ lookup('dict', pacemaker_hosts ) }}"
-  when: 
-    - main_node in item.key
-    - true in item.value
+  with_items: "{{ pacemaker_hosts }}"
+  when: item.main_node
 
 - name: Starting cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_start_cmd }}"
-  when: pacemaker_hosts.main_node|bool == true
+  with_items: "{{ pacemaker_hosts }}"
+  when: item.main_node
 
 - name: Disabling stonith
   ansible.builtin.command:
     cmd: "{{ pcsd_stonith_disable_cmd }}"
-  when: pacemaker_hosts.main_node|bool == true
+  with_items: "{{ pacemaker_hosts }}"
+  when: item.main_node

@@ -10,7 +10,10 @@
         depth: 2
 
     #Tasks
-    - name : Preparing and initializing cluster
+    - name : Preparing packages and sys pre-requisites 
       include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
+
+    - name : Setting up cluster
+      include_tasks: "{{ OS_task_dir + '/pcs/main.yml' }}"
 
   when: OS_family == "Debian"

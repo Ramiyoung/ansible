@@ -1,0 +1,9 @@
+---
+- name : Enabling pcsd daemon and initializing hacluster user 
+  include_tasks: common.yml
+  
+- name : Cleaning native cluster configurations
+  include_tasks: clean.yml
+
+- name : Initializing cluster
+  include_tasks: init.yml

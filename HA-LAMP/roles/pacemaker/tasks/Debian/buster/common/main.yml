@@ -7,6 +7,3 @@
 
 - name : Configuring packages
   include_tasks: firewall.yml
-
-- name : Initiliazing packages
-  include_tasks: pcs.yml

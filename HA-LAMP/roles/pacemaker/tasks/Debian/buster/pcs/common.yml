@@ -1,0 +1,12 @@
+---
+- name : Enabling pcs Daemon
+  ansible.builtin.service:
+    name: "{{ pcsd_service }}"
+    state: "{{ pcsd_state }}"
+    enabled: "{{ pcsd_enabled }}"
+
+- name: changing hacluster password
+  ansible.builtin.user:
+    name: "{{ hacluster_user }}"
+    update_password: always
+    password: "{{ hacluster_passwd | password_hash('sha512')}}"
