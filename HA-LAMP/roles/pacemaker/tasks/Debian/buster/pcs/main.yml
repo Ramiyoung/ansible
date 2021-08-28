@@ -5,5 +5,10 @@
 - name : Cleaning native cluster configurations
   include_tasks: clean.yml
 
-- name : Initializing cluster
+- name : FACTS - Retrieving pacemaker hosts
+  include_tasks: get_pcmk_hosts.yml
+
+- name : Initiliazing cluster configuation
+  with_items: "{{ pacemaker_hosts }}"
   include_tasks: init.yml
+  when: item.main_node

@@ -1,0 +1,13 @@
+---
+- name: Retrieving pacemaker hosts (empty array)
+  set_fact:
+    pcmk_hosts: []
+
+- name: Retrieving pacemaker hosts (appending hosts)
+  set_fact:
+    pcmk_hosts: "{{ pcmk_hosts + [ item.hostname ] }}"
+  with_items: "{{ pacemaker_hosts }}"
+
+- name: Initializing pacemaker hosts (list to string)
+  set_fact:
+    pcmk_hosts_str: "{{ pcmk_hosts | join (' ') }}"

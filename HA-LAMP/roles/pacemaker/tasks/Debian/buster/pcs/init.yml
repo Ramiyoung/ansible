@@ -1,37 +1,16 @@
 ---
-- name: Retrieving pacemaker hosts (empty array)
-  set_fact:
-    pcmk_hosts: []
-
-- name: Retrieving pacemaker hosts (appending hosts)
-  set_fact:
-    pcmk_hosts: "{{ pcmk_hosts + [ item.hostname ] }}"
-  with_items: "{{ pacemaker_hosts }}"
-
-- name: Initializing pacemaker hosts (list to string)
-  set_fact:
-    pcmk_hosts_str: "{{ pcmk_hosts | join (' ') }}"
-   
 - name: Authenticating all nodes
   ansible.builtin.command: 
     cmd: "{{ pcsd_auth_cmd }} {{ pcmk_hosts_str }} -u {{ hacluster_user }} -p {{ hacluster_passwd }}"
-  with_items: "{{ pacemaker_hosts }}"
-  when: item.main_node
 
 - name: Initializing cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_setup_cmd }} {{ pcmk_cluster_name }} {{ pcmk_hosts_str }}"
-  with_items: "{{ pacemaker_hosts }}"
-  when: item.main_node
 
 - name: Starting cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_start_cmd }}"
-  with_items: "{{ pacemaker_hosts }}"
-  when: item.main_node
 
 - name: Disabling stonith
   ansible.builtin.command:
     cmd: "{{ pcsd_stonith_disable_cmd }}"
-  with_items: "{{ pacemaker_hosts }}"
-  when: item.main_node
