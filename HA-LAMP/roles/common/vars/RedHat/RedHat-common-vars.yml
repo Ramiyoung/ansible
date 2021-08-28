@@ -1,9 +1,0 @@
----
-# Packages/dependencies
-common_packages: 
-  - net-tools
-  - vim
-  - epel-release
-  - tcpdump
-  - wget
-  - curl
