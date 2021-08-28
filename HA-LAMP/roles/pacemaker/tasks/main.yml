@@ -1,4 +1,16 @@
 ---
 # tasks file for pacemaker
-- name : Preparing and initializing cluster
-  include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
+  #Debian
+- name: common pcs configuration for Debian servers
+  block:
+    #Vars
+    - name : Loading Debian variables
+      include_vars: 
+        dir: "{{ OS_vars_dir }}"
+        depth: 2
+
+    #Tasks
+    - name : Preparing and initializing cluster
+      include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
+
+  when: OS_family == "Debian"

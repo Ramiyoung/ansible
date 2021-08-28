@@ -1,7 +1,7 @@
 ---
 pacemaker_hosts:
-  - { hostname: maxscale-01, ip: 10.100.0.31 }
-  - { hostname: maxscale-02, ip: 10.100.0.32 }
+  - { hostname: maxscale-01, ip: 10.100.0.31, main_node: true }
+  - { hostname: maxscale-02, ip: 10.100.0.32, main_node: false }
 
 #Pacemaker cluster configuration
 pcmk_cluster_name: Maxscale

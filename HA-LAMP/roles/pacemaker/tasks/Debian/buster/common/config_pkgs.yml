@@ -1,5 +1,5 @@
 ---
 - name : Installing pacemaker/corosync/psmisc packages
-  yum:
+  apt:
     name: "{{ pcmk_packages }}"
     state: "{{ pcmk_packages_version }}"

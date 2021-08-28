@@ -1,6 +1,8 @@
----  
-- name : Initializing /etc/hosts file
-  ansible.builtin.lineinfile:
+---
+- name : Appending each pacemaker nodes in {{ host_file }}
+  ansible.builtin.blockinfile:
     path: "{{ hosts_file }}"
-    line: "{{ item.value }} {{ item.key }}"
-  with_dict: "{{ pacemaker_hosts }}"
+    block: |
+      {{ item.ip }} {{ item.hostname }}
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{ item.hostname }}"
+  loop: "{{ pacemaker_hosts }}"

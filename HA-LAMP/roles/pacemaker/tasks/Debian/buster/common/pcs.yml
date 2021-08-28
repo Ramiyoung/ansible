@@ -31,14 +31,14 @@
 - name: Initializing cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_setup_cmd }} {{ pcmk_cluster_name }} {{ pcmk_hosts_str }}"
-  when: ansible_hostname == 'haproxy-01'
+  when: pacemaker_hosts.main_node|bool == true
 
 - name: Starting cluster
   ansible.builtin.command:
     cmd: "{{ pcsd_start_cmd }}"
-  when: ansible_hostname == 'haproxy-01'
+  when: pacemaker_hosts.main_node|bool == true
 
 - name: Disabling stonith
   ansible.builtin.command:
     cmd: "{{ pcsd_stonith_disable_cmd }}"
-  when: ansible_hostname == 'haproxy-01'
+  when: pacemaker_hosts.main_node|bool == true
