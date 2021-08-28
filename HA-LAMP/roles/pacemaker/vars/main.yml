@@ -1,5 +1,20 @@
 ---
 # vars file for pacemaker
+OS_family: "{{ ansible_facts['os_family'] }}"
+OS_distro: "{{ ansible_facts['distribution'] }}"
+OS_release: "{{ ansible_facts['distribution_release'] }}"
+
+role_dir: "{{ playbook_dir + '/roles/pacemaker' }}"
+
+main_task_dir: "{{ role_dir + '/tasks' }}"
+main_vars_dir: "{{ role_dir + '/vars' }}"
+main_template_dir: "{{ role_dir + '/templates' }}"
+
+OS_template_dir: "{{ main_template_dir + '/' + OS_family + '/' + OS_release }}"
+OS_task_dir: "{{ main_task_dir + '/' + OS_family + '/' + OS_release }}"
+OS_vars_dir: "{{ main_vars_dir + '/' + OS_family + '/' + OS_release }}"
+
+hosts_file: /etc/hosts
 # Packages/dependencies
 pcmk_packages:
   - pacemaker
@@ -7,22 +22,7 @@ pcmk_packages:
   - psmisc
 pcmk_packages_version: latest
 
-#Pacemaker cluster configuration
-pcmk_cluster_name: HAproxy 
-pcmk_ha_vip_name: HAproxy-vip
-pcmk_ha_group_name: HAproxy-Group
-
 #firewalld configuration
 firewalld_HA_service: high-availability
 firewalld_HA_enabled: yes #permanent
 firewalld_HA_state: enabled
-
-#pcsd configuration
-pcsd_service: pcsd
-pcsd_state: started
-pcsd_enabled: yes
-pcsd_auth_cmd: pcs cluster auth
-pcsd_setup_cmd: pcs cluster setup --name
-pcsd_start_cmd: pcs cluster start --all
-pcsd_stonith_disable_cmd: pcs property set stonith-enabled=false
-

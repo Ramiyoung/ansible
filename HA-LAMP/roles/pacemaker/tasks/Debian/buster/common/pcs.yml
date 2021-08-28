@@ -1,0 +1,44 @@
+---
+- name : Enabling pcs Daemon
+  ansible.builtin.service:
+    name: "{{ pcsd_service }}"
+    state: "{{ pcsd_state }}"
+    enabled: "{{ pcsd_enabled }}"
+
+- name: changing hacluster password
+  ansible.builtin.user:
+    name: "{{ hacluster_user }}"
+    update_password: always
+    password: "{{ hacluster_passwd | password_hash('sha512')}}"
+
+- name: Retrieving pacemaker hosts (empty array)
+  set_fact:
+    pcmk_hosts: []
+
+- name: Retrieving pacemaker hosts (appending hosts)
+  set_fact:
+    pcmk_hosts: "{{ pcmk_hosts + [ item.key ]}}"
+  with_dict: "{{ pacemaker_hosts }}"
+
+- name: Initializing pacemaker hosts (list to string)
+  set_fact:
+    pcmk_hosts_str: "{{ pcmk_hosts | join (' ') }}"
+
+- name: Authenticating all nodes
+  ansible.builtin.command: 
+    cmd: "{{ pcsd_auth_cmd }} {{ pcmk_hosts_str }} -u {{ hacluster_user }} -p {{ hacluster_passwd }}"
+
+- name: Initializing cluster
+  ansible.builtin.command:
+    cmd: "{{ pcsd_setup_cmd }} {{ pcmk_cluster_name }} {{ pcmk_hosts_str }}"
+  when: ansible_hostname == 'haproxy-01'
+
+- name: Starting cluster
+  ansible.builtin.command:
+    cmd: "{{ pcsd_start_cmd }}"
+  when: ansible_hostname == 'haproxy-01'
+
+- name: Disabling stonith
+  ansible.builtin.command:
+    cmd: "{{ pcsd_stonith_disable_cmd }}"
+  when: ansible_hostname == 'haproxy-01'

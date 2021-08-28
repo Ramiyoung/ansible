@@ -1,0 +1,12 @@
+---
+- name : Configuring host records
+  include_tasks: config_hosts.yml
+  
+- name : Configuring packages
+  include_tasks: config_pkgs.yml
+
+- name : Configuring packages
+  include_tasks: firewall.yml
+
+- name : Initiliazsing packages
+  include_tasks: pcs.yml

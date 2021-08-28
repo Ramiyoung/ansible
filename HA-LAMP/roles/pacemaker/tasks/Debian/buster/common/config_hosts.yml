@@ -1,0 +1,6 @@
+---  
+- name : Initializing /etc/hosts file
+  ansible.builtin.lineinfile:
+    path: "{{ hosts_file }}"
+    line: "{{ item.value }} {{ item.key }}"
+  with_dict: "{{ pacemaker_hosts }}"

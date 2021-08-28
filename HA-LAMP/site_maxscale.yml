@@ -3,5 +3,6 @@
   hosts: maxscale
   
   roles:
-    - role: common
-    - role: maxscale
+#    - role: common
+    - role: pacemaker
+#    - role: maxscale
