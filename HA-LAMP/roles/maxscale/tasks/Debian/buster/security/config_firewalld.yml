@@ -1,24 +1,8 @@
 ---  
-- name: "Configuring firewalld mysql service"
-  community.general.xml:
-    path: "{{ firewalld_zone_conf }}"
-    xpath: "{{ firewalld_zone_root }}"
-    pretty_print: yes
-    input_type: xml
-    add_children:
-      - "<service name=\"{{ item.service }}\"/>"
-  with_items: 
-    - "{{ galera_firewalld_service_config }}"
-
-- name: "Configuring firewalld galera port"
-  community.general.xml:
-    path: "{{ firewalld_zone_conf }}"
-    xpath: "{{ firewalld_zone_root }}"
-    pretty_print: yes
-    input_type: xml
-    add_children:
-      - "<port port=\"{{ item.1 }}\" protocol=\"{{ item.0.protocol }}\"/>"
-  with_subelements: 
-    - "{{ galera_firewalld_port_config }}"
-    - port
+- name: "Configuring firewalld {{ RW_Listener_port }} port"
+  ansible.posix.firewalld:
+    port: "{{ item }}"
+    permanent: yes
+    state: enabled
+  with_items: "{{ firewalld_maxscale_ports }}"
   notify: reload firewalld

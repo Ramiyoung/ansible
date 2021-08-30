@@ -1,19 +1,14 @@
-host_file: /etc/hosts
-maxscale_conf_root: /etc/maxscale.d
-#Dependencies
-mariadb_dependencies_packages_state: latest
-mariadb_dependencies_packages:
-  - software-properties-common
-  - dirmngr
-  - socat
+hosts_file: /etc/hosts
 
-#Repository
-mariadb_release_signing_key: https://mariadb.org/mariadb_release_signing_key.asc
-mariadb_release_signing_key_state: present
-mariadb_repository: deb [arch=amd64,arm64,ppc64el] https://ftp.igh.cnrs.fr/pub/mariadb/repo/10.5/debian buster main
-mariadb_repository_state: present
+# Template : mariadb_repo_setup.j2
+mariadb_repo_setup_template: "{{ OS_template_dir + '/common/mariadb_repo_setup.j2' }}"
+mariadb_repo_setup_template_dest: /tmp/mariadb_repo_setup
+mariadb_repo_setup_owner: root
+mariadb_repo_setup_group: root
+mariadb_repo_setup_mode: '0755'
 
-#Packages for galera
-maxscale_packages:
-  - maxscale
-maxscale_packages_state: latest
+# Tasks : 
+  ## Common : config_dependencies.yml
+mariadb_server_version: mariadb-10.5
+mariadb_server_version_real: mariadb-10.5
+mariadb_maxscale_version: 2.5

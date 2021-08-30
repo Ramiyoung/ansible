@@ -1,6 +1,11 @@
 ---
-# handlers file for galera
+# handlers file for maxscale
 - name : reload firewalld
   ansible.builtin.service:
     name: firewalld
     state: reloaded
+
+- name : restart maxscale
+  ansible.builtin.service:
+    name: maxscale
+    state: restarted

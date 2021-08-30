@@ -1,0 +1,8 @@
+maxscale_configuration_root: /etc/
+maxscale_configuration_template: "{{ OS_template_dir + '/configfile/maxscale.j2' }}"
+maxscale_configuration_template_dest: "{{ maxscale_configuration_root + '/maxscale.cnf' }}"
+maxscale_configuration_owner: root
+maxscale_configuration_group: root
+maxscale_configuration_mode: '0755'
+threads: 1
+RW_Listener_port: 4006

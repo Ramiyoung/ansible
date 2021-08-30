@@ -15,17 +15,8 @@ OS_task_dir: "{{ main_task_dir + '/' + OS_family + '/' + OS_release }}"
 OS_vars_dir: "{{ main_vars_dir + '/' + OS_family + '/' + OS_release }}"
 
 # Modify variables here and only
-maxscale_hosts:
-  - { hostname: maxscale-01, ip: 10.100.0.31 }
-  - { hostname: maxscale-02, ip: 10.100.0.32 }
-
-CA_CN: "vagrant-ca-maxscale"
-CA_key: "ca-key-maxscale.pem"
-CA_cert: "ca-maxscale-crt.pem"
-CA_config: "ca-maxscale.conf"
-
-server_CN: "vagrant-maxscale"
-serverKey: "key-maxscale.pem"
-serverReq: "req-maxscale.pem"
-serverCert: "crt-maxscale.pem"
-server_config: "maxscale.conf"
+# Template : maxscale.j2
+galera_hosts:
+    - { hostname: mariadb-01, ip: 10.100.0.81 }
+    - { hostname: mariadb-02, ip: 10.100.0.82 }
+    - { hostname: mariadb-03, ip: 10.100.0.83 }

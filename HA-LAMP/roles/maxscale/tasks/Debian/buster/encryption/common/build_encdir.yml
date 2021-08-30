@@ -1,8 +1,0 @@
----
-- name: Building MariaDB Galera encryption settings directory
-  ansible.builtin.file:
-    path: "{{ encryption_keys_dir }}"
-    state: directory
-    owner: "{{ encrypted_keyfile_owner }}"
-    group: "{{ encrypted_keyfile_group }}"
-    mode: '0755'

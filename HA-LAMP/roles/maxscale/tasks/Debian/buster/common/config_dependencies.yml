@@ -1,4 +1,17 @@
-- name : "Installing MariaDB dependencies (pre-requesites) : {{ mariadb_dependencies_packages }}"
+---
+- name : "Downloading mariadb_repo_setup script"
+  ansible.builtin.template:
+    src: "{{ mariadb_repo_setup_template }}"
+    dest: "{{ mariadb_repo_setup_template_dest }}"
+    owner: "{{ mariadb_repo_setup_owner }}"
+    group: "{{ mariadb_repo_setup_group }}"
+    mode: "{{ mariadb_repo_setup_mode }}"
+
+- name : "Setting up MariaDB repo"
+  ansible.builtin.command: 
+    cmd: "{{ mariadb_repo_setup_template_dest }}"
+
+- name : "Installing maxscale binary"
   ansible.builtin.apt:
-    name: "{{ mariadb_dependencies_packages }}"
-    state: "{{ mariadb_dependencies_packages_state }}"
+    name: maxscale
+    state: latest

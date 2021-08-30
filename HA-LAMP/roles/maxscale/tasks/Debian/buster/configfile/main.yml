@@ -1,2 +1,4 @@
 ---
 # tasks for configfile subtask
+- name: Configuring Maxscale
+  include_tasks: config.yml

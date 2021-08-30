@@ -1,7 +1,0 @@
-- name: Building req configurations
-  local_action:
-    module: ansible.builtin.template
-    src: "{{ item.template_file }}"
-    dest: "{{ item.conf_file }}"
-  loop: "{{ req_configs }}"
-  run_once: True

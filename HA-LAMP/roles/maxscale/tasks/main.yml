@@ -7,20 +7,17 @@
     - name : Loading Debian variables
       include_vars: 
         dir: "{{ OS_vars_dir }}"
-        depth: 2
+        depth: 3
 
     #Tasks
-#    - name : installing and configuring Debian common settings for Galera MariaDB setup
-#      include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
+    - name : installing and configuring Debian common settings for Galera Maxscale setup
+      include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
   
-#    - name : Setting Debian common security settings for Galera MariaDB setup
-#      include_tasks: "{{ OS_task_dir + '/security/main.yml' }}"
-# 
-    - name : Setting up Debian Galera MariaDB encryption
-      include_tasks: "{{ OS_task_dir + '/encryption/main.yml' }}"
-#
-#    - name : Deploying MariaDB Galera configuration file
-#      include_tasks: "{{ OS_task_dir + '/configfile/main.yml' }}"
+    - name : Setting Debian common security settings for Galera MariaDB setup
+      include_tasks: "{{ OS_task_dir + '/security/main.yml' }}"
+ 
+    - name : Deploying MariaDB Galera configuration file
+      include_tasks: "{{ OS_task_dir + '/configfile/main.yml' }}"
 
   when: OS_family == "Debian"
 

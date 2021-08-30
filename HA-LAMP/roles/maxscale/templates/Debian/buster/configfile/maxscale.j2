@@ -1,0 +1,36 @@
+{%- set servers = [] -%}
+{%- for item in galera_hosts -%}
+{{ servers.append(item.hostname)  }}
+{%- endfor -%}
+[maxscale]
+threads={{ threads }}
+
+{% for item in galera_hosts %}
+[{{ item.hostname }}]
+type=server
+address={{ item.ip }}
+port=3306
+protocol=MariaDBBackend
+{% endfor %}
+
+[Galera_Monitor]
+type=monitor
+module=galeramon
+servers={{ servers|join(',') }}
+user=maxscale
+password=maxscalepwd
+monitor_interval=1000
+
+[Read-Write_Service]
+type=service
+router=readwritesplit
+servers={{ servers|join(',') }}
+version_string=5.5.5-10.1.14 Maxscale {{ mariadb_maxscale_version }}
+user=maxscale
+password=maxscalepwd
+
+[Read-Write_Listener]
+type=listener
+service=Read-Write_Service
+protocol=MariaDBClient
+port={{ RW_Listener_port }}
