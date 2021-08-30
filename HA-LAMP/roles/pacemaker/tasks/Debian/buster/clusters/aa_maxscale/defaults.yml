@@ -3,3 +3,7 @@
 # --> Debian/buster/aa-maxscale/defaults-vars.yml
 
 # Resource stickiness
+- name : Configuring defaults resource stickiness after failover
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_defaults_cmd }}
+    resource-stickiness={{ resource_stickiness }}"

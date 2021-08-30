@@ -13,10 +13,10 @@
     - name : Preparing packages and sys pre-requisites 
       include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
 
-    - name : Setting up cluster
+    - name : Setting up Pacemaker cluster
       include_tasks: "{{ OS_task_dir + '/pcs/main.yml' }}"
 
-    - name : Setting up Maxscale cluster
-      include_tasks: "{{ OS_task_dir + '/pcs/main.yml' }}"
-
+    - name : Configuring A/A maxscale cluster
+      include_tasks: "{{ OS_task_dir + '/clusters/main.yml' }}"
+      when: pcmk_main_node
   when: OS_family == "Debian"

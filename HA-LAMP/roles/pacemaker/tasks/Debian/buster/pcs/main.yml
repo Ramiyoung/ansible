@@ -9,6 +9,5 @@
   include_tasks: get_pcmk_hosts.yml
 
 - name : Initiliazing cluster configuation
-  with_items: "{{ pacemaker_hosts }}"
   include_tasks: init.yml
-  when: item.main_node
+  when: pcmk_main_node

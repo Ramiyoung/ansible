@@ -1,0 +1,4 @@
+---
+# aa_maxscale cluster main.yml
+- name : Building A/A Maxscale cluster 
+  include_tasks: aa_maxscale/main.yml

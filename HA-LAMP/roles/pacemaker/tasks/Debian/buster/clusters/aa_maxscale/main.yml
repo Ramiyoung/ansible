@@ -1,0 +1,10 @@
+---
+# aa_maxscale cluster main.yml
+- name : "[A/A Maxcale cluster] : Configuring resources"
+  include_tasks: resources.yml
+
+- name : "[A/A Maxcale cluster] : Configuring constraints"
+  include_tasks: constraints.yml
+
+- name : "[A/A Maxcale cluster] : Configuring defaults"
+  include_tasks: defaults.yml

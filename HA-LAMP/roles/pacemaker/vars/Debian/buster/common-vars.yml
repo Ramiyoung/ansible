@@ -17,3 +17,4 @@ pcsd_resource_meta_cmd: pcs resource meta
 pcsd_constraint_cmd: pcs constraint
 
 # pcsd defaults configuration
+pcsd_resource_defaults_cmd: pcs resource defaults
