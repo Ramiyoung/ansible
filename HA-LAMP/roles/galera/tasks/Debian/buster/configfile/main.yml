@@ -1,33 +1,7 @@
 ---
 # tasks for configfile_section subtasks
-############# Init block #############
 - name: "Initializing MariaDB Galera configuration file"
-  block: 
-    - name: "Initializing configuration file"
-      include_tasks: "init_cfg.yml"
-  tags: init
+  include_tasks: "mariadb_galera.yml"
 
-############# Update section #############
-- name: "Updating MariaDB Galera configuration file"
-  block:
-    - name : "Updating Galera section : mandatory parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/galera/mandatory.yml' }}"
-    
-    - name : "Updating Galera section : optional parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/galera/optional.yml' }}"
-
-    - name : "Updating MariaDB section : defaults parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/mariadb/wsrep_sst.yml' }}"
-
-    - name : "Updating MariaDB section : logging parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/mariadb/logging.yml' }}"
-
-    - name : "Updating Mysqld section : data-at-rest encryption parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/mysqld/tde.yml' }}"
-
-    - name : "Updating Mysqld section : SST SSL support parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/mysqld/ssl_sst.yml' }}"
-
-    - name : "Updating MariaDB section : SSL defaults parameters"
-      include_tasks: "{{ OS_task_dir + '/configfile/sections/mariadb/ssl_defaults.yml' }}"
-  tags: update
+- name: "Initializing MariaDB server configuration file"
+  include_tasks: "mariadb_server.yml"

@@ -1,0 +1,8 @@
+---
+- name : "Deploying initial MariaDB server configuration file at {{ mariadb_server_conf_file }}"
+  ansible.builtin.template:
+    src: "{{ mariadb_server_conf_file_template }}"
+    dest: "{{ mariadb_server_conf_file }}"
+    owner: "{{ mariadb_server_conf_file_owner }}"
+    group: "{{ mariadb_server_conf_file_group }}"
+    mode: "{{ mariadb_server_conf_file_mode }}"

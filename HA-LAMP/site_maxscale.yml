@@ -1,5 +1,5 @@
 ---
-- name : Install and configure MariaDB galera cluster
+- name : Install and configure MariaDB Maxscale loadbalancer (through pacemaker cluster)
   hosts: maxscale
   
   roles:

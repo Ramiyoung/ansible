@@ -1,7 +1,3 @@
-galera_section_template: "{{ OS_template_dir + '/configfile_sections/galera' }}"
-galera_section_mandatory_template: "{{ galera_section_template + '/mandatory.j2'}}"
-galera_section_optional_template: "{{ galera_section_template + '/optional.j2'}}"
-
 #[galera]
 #Mandatory
 wsrep_provider: /usr/lib/libgalera_smm.so

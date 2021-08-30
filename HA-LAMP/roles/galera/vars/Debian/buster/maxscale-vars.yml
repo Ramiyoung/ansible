@@ -1,0 +1,9 @@
+maxscale_hosts:
+  - { hostname: maxscale-01, ip: 10.100.0.31 }
+  - { hostname: maxscale-02, ip: 10.100.0.32 }
+
+maxscale_privileges_template_script: "{{ OS_template_dir + '/configfile_sections/maxscale.sql.j2' }}"
+maxscale_privileges_script: "/tmp/maxscale.sql"
+maxscale_privileges_script_owner: root
+maxscale_privileges_script_group: root
+maxscale_privileges_script_mode: "0644" 

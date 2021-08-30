@@ -1,6 +1,3 @@
-mysqld_section_template: "{{ OS_template_dir + '/configfile_sections/mysqld' }}"
-mysqld_section_tde_template: "{{ mysqld_section_template + '/tde.j2' }}"
-
 #[mysqld]
 # Data-at-Rest encryption
 plugin_load_add: "file_key_management"

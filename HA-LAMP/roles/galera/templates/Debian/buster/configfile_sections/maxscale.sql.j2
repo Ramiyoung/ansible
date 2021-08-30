@@ -1,0 +1,13 @@
+
+{% for item in maxscale_hosts %}
+CREATE USER 'maxscale'@'{{ item.ip }}' IDENTIFIED BY 'maxscalepwd';
+GRANT SELECT ON mysql.user TO 'maxscale'@'{{ item.ip }}';
+GRANT SELECT ON mysql.db TO 'maxscale'@'{{ item.ip }}';
+GRANT SELECT ON mysql.tables_priv TO 'maxscale'@'{{ item.ip }}';
+GRANT SELECT ON mysql.columns_priv TO 'maxscale'@'{{ item.ip }}';
+GRANT SELECT ON mysql.procs_priv TO 'maxscale'@'{{ item.ip }}';
+GRANT SELECT ON mysql.proxies_priv TO 'maxscale'@'{{ item.ip }}';
+GRANT SELECT ON mysql.roles_mapping TO 'maxscale'@'{{ item.ip }}';
+GRANT SHOW DATABASES ON *.* TO 'maxscale'@'{{ item.ip }}';
+{% endfor %}
+FLUSH PRIVILEGES;

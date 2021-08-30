@@ -1,8 +1,3 @@
-mariadb_section_template: "{{ OS_template_dir + '/configfile_sections/mariadb' }}"
-mariadb_section_wsrep_sst_template: "{{ mariadb_section_template + '/wsrep_sst.j2' }}"
-mariadb_section_logging_template: "{{ mariadb_section_template + '/logging.j2' }}"
-mariadb_section_ssl_defaults_template: "{{ mariadb_section_template + '/ssl_defaults.j2' }}"
-
 #[mariadb]
 #State Snapshots Transfers
 wsrep_sst_method: "mariabackup"

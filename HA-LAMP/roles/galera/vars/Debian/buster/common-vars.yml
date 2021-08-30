@@ -39,7 +39,15 @@ galera_conf_file_owner: root
 galera_conf_file_group: root
 galera_conf_file_mode: "0644" 
 
-  ## mariabackup sst privileges script settings
+#MariaDB server configuration file
+mariadb_server_conf_file_bck: yes
+mariadb_server_conf_file_template : "{{ OS_template_dir + '/configfile_sections/50-server.cnf.j2' }}"
+mariadb_server_conf_file: "{{ mariadb_conf_root + '/50-server.cnf'}}"
+mariadb_server_conf_file_owner: root
+mariadb_server_conf_file_group: root
+mariadb_server_conf_file_mode: "0644" 
+
+## mariabackup sst privileges script settings
 mariabackup_sst_privileges_template_script: "{{ OS_template_dir + '/common/mariabackup.sql.j2' }}"
 mariabackup_sst_privileges_script: /tmp/mariabackup.sql
 mariabackup_sst_privileges_script_owner: root

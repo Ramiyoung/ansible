@@ -1,19 +1,9 @@
-
 ---
-firewalld_root_confdir : /usr/lib/firewalld
-firewalld_zone_confdir : "{{ firewalld_root_confdir + '/zones' }}"
-firewalld_zone_conf : "{{ firewalld_zone_confdir + '/public.xml' }}"
-firewalld_zone_root: /zone
-
 galera_firewalld_service_config:
-  - service : mysql
+  - mysql
 
 galera_firewalld_port_config:
-  - protocol: tcp
-    port:
-      - "4567"
-      - "4568"
-      - "4444"
-  - protocol: udp
-    port:
-      - "4567"
+  - 4567/udp
+  - 4567/tcp
+  - 4568/tcp
+  - 4444/tcp

@@ -1,0 +1,8 @@
+---
+- name : Deploying maxscale user privileges script 
+  ansible.builtin.template:
+    src: "{{ maxscale_privileges_template_script }}"
+    dest: "{{ maxscale_privileges_script }}"
+    owner: "{{ maxscale_privileges_script_owner }}"
+    group: "{{ maxscale_privileges_script_group }}"
+    mode: "{{ maxscale_privileges_script_mode }}"
