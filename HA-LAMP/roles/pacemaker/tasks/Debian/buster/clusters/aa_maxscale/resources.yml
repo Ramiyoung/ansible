@@ -1,0 +1,41 @@
+---
+# This file gathers required resources for an active/active Maxscale cluster
+# --> Debian/buster/aa-maxscale/resource-vars.yml
+
+# Virtual IP
+- name: Creating virtual-ip
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_create_cmd }} {{ vip_resource_name }} 
+    ocf:heartbeat:IPaddr2 ip={{ vip }}
+      cidr_netmask={{ vip_cidr_netmask }}
+        op monitor interval={{ vip_resource_monitor_interval }}"
+
+# Maxscale systemd resource
+- name : Creating Maxscale systemd resource
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_create_cmd }} {{ systemd_resource_name }} 
+    systemd:maxscale 
+      op monitor interval={{ systemd_resource_monitor }}"
+
+# Cloning Maxscale resource
+- name : Cloning Maxscale resource (active/active cluster)
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_clone }} {{ clone_resource_name }}"
+
+# Resources stickiness when failover
+- name : Configuring virtual-ip stickiness after failover
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_meta_cmd }} {{ vip_resource_name }} 
+    migration-threshold={{ migration_threshold }} 
+      failure-timeout={{ failure_timeout }}"
+        resource-stickiness={{ resource_stickiness }}"
+
+- name : Configuring maxscale-clone stickiness after failover
+  ansible.builtin.command:
+    cmd: "{{ pcsd_resource_meta_cmd }} {{ cloned_resource_name }} 
+    migration-threshold={{ migration_threshold }} 
+      failure-timeout={{ failure_timeout }}"
+        resource-stickiness={{ resource_stickiness }}"
+
+
+

@@ -1,0 +1,19 @@
+# pcsd configuration
+pcsd_service: pcsd
+pcsd_state: started
+pcsd_enabled: yes
+pcsd_auth_cmd: pcs host auth
+pcsd_destroy_cmd: pcs cluster destroy
+pcsd_setup_cmd: pcs cluster setup
+pcsd_start_cmd: pcs cluster start --all
+pcsd_stonith_disable_cmd: pcs property set stonith-enabled=false
+
+# pcsd resource configuration
+pcsd_resource_create_cmd: pcs resource create
+pcsd_resource_clone_cmd: pcs resource clone
+pcsd_resource_meta_cmd: pcs resource meta
+
+# pcsd constraint configuration
+pcsd_constraint_cmd: pcs constraint
+
+# pcsd defaults configuration

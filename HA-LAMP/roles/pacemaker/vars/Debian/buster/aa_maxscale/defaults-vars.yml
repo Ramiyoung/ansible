@@ -1,0 +1,3 @@
+migration_threshold: 1
+faiure_timeout: 60s
+resource_stickiness: 100

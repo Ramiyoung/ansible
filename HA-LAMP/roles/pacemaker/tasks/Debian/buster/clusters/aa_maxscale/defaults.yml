@@ -1,0 +1,5 @@
+---
+# This file gathers required defaults resources for an active/active Maxscale cluster
+# --> Debian/buster/aa-maxscale/defaults-vars.yml
+
+# Resource stickiness

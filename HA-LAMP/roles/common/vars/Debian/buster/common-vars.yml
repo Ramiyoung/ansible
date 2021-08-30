@@ -12,7 +12,8 @@ common_packages:
   - htop
   
 backports_packages:
-  - iptables #https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=931722
+  - iptables #https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=931722 --> firewalld configuration
+  - libknet1 #https://www.mail-archive.com/debian-bugs-dist@lists.debian.org/msg1764378.html --> pacemaker role
 
 rm_packages: 
   - apparmor

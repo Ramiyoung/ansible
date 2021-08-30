@@ -4,5 +4,6 @@
   
   roles:
     - role: common
+    - role: maxscale
     - role: pacemaker
-#    - role: maxscale
+

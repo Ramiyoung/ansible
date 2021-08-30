@@ -7,13 +7,16 @@
     - name : Loading Debian variables
       include_vars: 
         dir: "{{ OS_vars_dir }}"
-        depth: 2
+        depth: 3
 
     #Tasks
     - name : Preparing packages and sys pre-requisites 
       include_tasks: "{{ OS_task_dir + '/common/main.yml' }}"
 
     - name : Setting up cluster
+      include_tasks: "{{ OS_task_dir + '/pcs/main.yml' }}"
+
+    - name : Setting up Maxscale cluster
       include_tasks: "{{ OS_task_dir + '/pcs/main.yml' }}"
 
   when: OS_family == "Debian"

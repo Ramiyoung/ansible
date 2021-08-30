@@ -1,0 +1,15 @@
+---
+# This file gathers required constraints for an active/active Maxscale cluster
+# --> Debian/buster/aa-maxscale/constraints-vars.yml
+
+# Colocation : maxscale-clone with virtual-ip
+- name : "Colocation constraint : maxscale-clone with virtual-ip"
+  ansible.builtin.command:
+    cmd: "{{ pcsd_constraint_cmd }} colocation add 
+    {{ vip_resource_name }} with {{ cloned_resource_name }} INFINITY"
+
+# Order : virtual-ip then maxscale-clone
+- name : "Ordering constraint : virtual-ip then maxscale-clone"
+  ansible.builtin.command:
+    cmd: "{{ pcsd_constraint_cmd }} order 
+    {{ vip_resource_name }} then {{ cloned_resource_name }}"

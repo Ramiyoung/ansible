@@ -1,0 +1,13 @@
+# vip
+vip_resource_name: maxscale-vip
+vip: 10.100.0.30
+vip_cidr_netmask: 24
+vip_resource_monitor_interval: 30s
+
+# maxscale systemd
+systemd_resource_name: maxscale
+systemd_resource_monitor: 1s
+
+# clone 
+clone_resource_name: maxscale
+cloned_resource_name: maxscale-clone

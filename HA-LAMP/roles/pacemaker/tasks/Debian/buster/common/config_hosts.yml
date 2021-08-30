@@ -1,5 +1,5 @@
 ---
-- name : Cleaning 127.0.1.1 record within each {{ host_file }} pacemaker nodes 
+- name : Cleaning 127.0.1.1 record within each {{ hosts_file }} pacemaker nodes 
   ansible.builtin.lineinfile:
     path: "{{ hosts_file }}"
     regexp: "127.0.1.1"
