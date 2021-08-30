@@ -16,12 +16,23 @@ OS_vars_dir: "{{ main_vars_dir + '/' + OS_family + '/' + OS_release }}"
 
 # Modify variables here and only
 # Remember to modify vault.yml to have custom mariabackup_sst_pwd per environment
+
 # Certificates/Keys location
 files_dir: "/home/alx/repo/ansible/HA-LAMP/roles/galera/files"
+
+# Hosts
+  ## Galera
 mariadb_hosts:
   - { hostname: mariadb-01, ip: 10.100.0.81 }
   - { hostname: mariadb-02, ip: 10.100.0.82 }
   - { hostname: mariadb-03, ip: 10.100.0.83 }
+
+  ## Maxscale
+maxscale_hosts:
+  - { hostname: maxscale-01, ip: 10.100.0.31 }
+  - { hostname: maxscale-02, ip: 10.100.0.32 }
+
+# Certificate configuration (Common name, crt configurations) 
 CA_CN: "prod-Galera-MFaJ_CA"
 server_CN: "prod-MariaDB-Galera_MFaJ_server"
 CA_key: "prod-Galera_MFaJ-CA-key.pem"
