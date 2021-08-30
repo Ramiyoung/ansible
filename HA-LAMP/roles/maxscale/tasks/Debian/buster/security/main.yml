@@ -1,2 +1,5 @@
 - name: Configuring firewalld 
   include_tasks: config_firewalld.yml
+
+- name: Generating encrypted password
+  include_tasks: passwd.yml

@@ -1,5 +1,5 @@
 maxscale_configuration_root: /etc/
-maxscale_configuration_template: "{{ OS_template_dir + '/configfile/maxscale.j2' }}"
+maxscale_configuration_template: "{{ OS_template_dir + '/configfile/maxscale.cnf.j2' }}"
 maxscale_configuration_template_dest: "{{ maxscale_configuration_root + '/maxscale.cnf' }}"
 maxscale_configuration_owner: root
 maxscale_configuration_group: root

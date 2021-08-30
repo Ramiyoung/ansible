@@ -1,0 +1,4 @@
+---
+# tasks for configfile_section subtasks
+- name: "Configuring maxscale user account script"
+  ansible.builtin.shell: mysql -uroot -p'{{ msi_passwd }}' < {{ maxscale_privileges_script }}

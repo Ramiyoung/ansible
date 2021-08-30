@@ -1,4 +1,7 @@
 ---
 # tasks for configfile_section subtasks
-- name: "Configuring maxscale user account"
+- name: "Configuring maxscale user account script"
   include_tasks: "userconf.yml"
+
+- name: "Configuring maxscale user account privileges"
+  include_tasks: "userprivileges.yml"

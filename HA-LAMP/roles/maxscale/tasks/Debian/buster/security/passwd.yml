@@ -1,0 +1,9 @@
+---
+- name: Generating secret for maxscale password encryption
+  ansible.builtin.command: 
+    cmd: maxkeys
+
+- name: Generating maxscale encrypted password
+  ansible.builtin.command: 
+    cmd: maxpasswd "{{ maxscale_pwd }}"
+  register: maxscale_enc_pwd
